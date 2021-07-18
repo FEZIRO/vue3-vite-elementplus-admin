@@ -9,14 +9,15 @@ import store from "@/store";
 import "./mock/index";
 import "./styles/elementui-variables.scss";
 
-//全局注册Nprogress
+//全局注册Nprogress加载指示器
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 NProgress.configure({ showSpinner: false, easing: "ease", speed: 500 });
 
 const app = createApp(App);
-console.log("环境", import.meta.env);
-// 分环境处理
+console.warn("环境", import.meta.env);
+
+// 开发环境开启devtool
 if (import.meta.env.MODE === "development") {
   app.config.devtools = true;
 }
