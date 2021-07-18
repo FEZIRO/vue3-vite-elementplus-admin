@@ -1,0 +1,16 @@
+/**
+ *  css动画
+ */
+
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.3s ease;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-1000px);
+  }
+}

@@ -1,0 +1,47 @@
+/**
+ *  自定义浏览器默认样式
+ */
+
+//优化滚动条样式
+* {
+  /* for Firefox: */
+  scrollbar-color: rgba(#000, 0.3) transparent;
+  scrollbar-width: thin;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+
+
+::-webkit-scrollbar-track {
+  width: 8px;
+  background: transparent;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(#999, 0.5);
+  background-clip: padding-box;
+  min-height: 20px;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+  transition: all 1s;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(#999, 1);
+}

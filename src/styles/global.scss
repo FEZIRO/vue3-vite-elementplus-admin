@@ -1,0 +1,60 @@
+/**
+ *  全局样式表
+ */
+
+@import "./color.scss";
+@import "./custom-default-style.scss";
+@import "./mixin.scss";
+@import "./animation.scss";
+
+
+//头部导航栏高度
+$appHeaderHeight:62px;
+//侧边导航栏宽度
+$sideMenuWidth:180px;
+
+
+//管理端面包屑高度
+$breadcrumbHeight:50px;
+//管理端主内容高度
+$adminContentHeight:calc(100vh - #{$appHeaderHeight} - #{$breadcrumbHeight} - 2px);
+
+
+#nprogress .bar {
+  background: $primaryColor;
+  height: 3px;
+}
+
+
+body[data-theme=dark] {
+  filter: invert(1) hue-rotate(180deg);
+  transition: all 300ms;
+
+
+  img,
+  .el-button,
+  .el-tag,
+  .el-radio,
+  .el-overlay,
+  video {
+    filter: invert(1) hue-rotate(180deg) !important;
+  }
+
+  // .el-input__inner {
+  //   background-color: rgba(#000, 0.2) !important;
+
+  //   &::placeholder {
+  //     filter: invert(1) hue-rotate(180deg);
+  //   }
+  // }
+
+  .el-dialog,
+  .el-overlay {
+    filter: invert(0.9) hue-rotate(180deg);
+  }
+
+  .el-popper {
+    background-color: #ccc;
+  }
+
+}
