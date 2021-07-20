@@ -5,7 +5,7 @@ Mock.mock("/login", "post", config => {
   let body = config.body && JSON.parse(config.body);
   console.log("body", body);
 
-  if (body.username === "1" && body.password === "1") {
+  if (body.username === "admin" && body.password === "admin") {
     return {
       success: true,
       msg: "登录成功",

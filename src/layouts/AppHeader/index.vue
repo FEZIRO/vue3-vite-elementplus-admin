@@ -13,6 +13,40 @@
       </el-menu>
     </div> -->
     <div class="header--right">
+      <i
+        class="el-icon-search search-btn"
+        @click="onToggleSearch"
+        v-if="!searchVisible"
+      ></i>
+      <el-select
+        v-else
+        v-model="keyword"
+        filterable
+        style="margin-right: 20px"
+        remote
+        reserve-keyword
+        placeholder="页面检索"
+        :filter-method="search"
+        :loading="searchInstance.loading"
+        size="small"
+        clearable
+      >
+        <template #prefix>
+          <i class="el-icon-search" style="margin: 0 10px"></i>
+        </template>
+        <el-option
+          v-for="item in searchInstance.result"
+          :key="item.name"
+          :label="item.name"
+          :value="item.name"
+          @click="onSearchSelect(item)"
+        >
+          <div>
+            <span style="margin-right: 10px">{{ item.name }}</span>
+            <span style="color: #ccc">{{ item.fullPath.join(" / ") }}</span>
+          </div>
+        </el-option>
+      </el-select>
       <section class="user-info-section">
         <el-popover
           placement="bottom"
@@ -80,6 +114,7 @@
                 :src="userInfo.avatar"
                 size="small"
               ></el-avatar>
+              <span class="username">{{ userInfo.name || "--" }}</span>
               <i class="el-icon-arrow-down"></i>
             </div>
           </template>
@@ -112,8 +147,8 @@
  */
 import { useStore } from "vuex";
 import { resetRouter } from "@/router";
-import { getType } from "@/utils/utils.js";
-import { defineComponent, computed, ref } from "vue";
+import { getType, traverseTree } from "@/utils/utils.js";
+import { defineComponent, computed, ref, reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 export default defineComponent({
   name: "AdminHeader",
@@ -173,6 +208,43 @@ export default defineComponent({
       });
     };
 
+    //页面检索
+    const keyword = ref("");
+    const searchInstance = reactive({
+      loading: false,
+      result: [],
+    });
+    watch(keyword, (newVal) => {
+      if (!newVal) searchInstance.result = [];
+    });
+    const searchVisible = ref(false);
+    const onToggleSearch = () => {
+      keyword.value = "";
+      searchVisible.value = !searchVisible.value;
+    };
+    const onSearchSelect = (data) => {
+      if (data.url) {
+        router.push({
+          path: data.url,
+        });
+      }
+    };
+    const search = (keyword) => {
+      console.log("搜索", keyword);
+      searchInstance.loading = true;
+      let menu = JSON.parse(localStorage.getItem("menu"));
+      let result = [];
+      let keywordReg = new RegExp(keyword, "i");
+      traverseTree(menu, (node) => {
+        if (node.type === "page" && keywordReg.test(node.name)) {
+          result.push(node);
+        }
+      });
+      searchInstance.result = result;
+      console.log("搜索结果", result);
+      searchInstance.loading = false;
+      // cb(result);
+    };
     return {
       notifyList,
       onLogoutClick,
@@ -184,6 +256,12 @@ export default defineComponent({
       pageIndicator: computed(() => store.state.app.pageIndicator),
       userInfo: computed(() => store.getters["app/userInfo"]),
       getType,
+      keyword,
+      onSearchSelect,
+      search,
+      onToggleSearch,
+      searchVisible,
+      searchInstance,
     };
   },
 });
@@ -237,8 +315,17 @@ export default defineComponent({
   }
 
   .header--right {
+    display: flex;
+    align-items: center;
     .icon-notify {
       margin-right: 30px;
+    }
+
+    .search-btn {
+      cursor: pointer;
+      margin-right: 20px;
+      font-weight: bold;
+      font-size: 20px;
     }
 
     .user-info-section {
@@ -246,10 +333,15 @@ export default defineComponent({
       align-items: center;
       margin-right: 20px;
       cursor: pointer;
-
+      .username {
+        margin-left: 5px;
+        font-weight: normal;
+        font-size: 13px;
+      }
       .user-info {
         margin-left: 10px;
         text-align: left;
+
         > p {
           margin-bottom: 4px;
           font-size: 14px;
@@ -288,6 +380,7 @@ export default defineComponent({
   overflow: auto;
   z-index: 99999999999;
   position: relative;
+
   .info-item {
     display: flex;
     align-items: center;

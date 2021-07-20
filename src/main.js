@@ -8,6 +8,51 @@ import "reset-css";
 import store from "@/store";
 import "./mock/index";
 import "./styles/elementui-variables.scss";
+import { traverseTree } from "@/utils/utils";
+
+const menu = [
+  {
+    id: "0",
+    name: "首页",
+    icon: "el-icon-s-home",
+    type: "page",
+    url: "/home",
+    children: null,
+    fullPath: ["首页"],
+  },
+  {
+    id: "1",
+    name: "系统管理",
+    icon: "el-icon-setting",
+    url: "/system",
+    fullPath: ["系统管理"],
+    type: "group",
+    children: [
+      {
+        id: "1-1",
+        name: "用户管理",
+        icon: "",
+        type: "page",
+        url: "/system/user-management",
+        children: null,
+        fullPath: ["系统管理", "用户管理"],
+      },
+      {
+        id: "1-2",
+        name: "角色管理",
+        icon: "",
+        type: "page",
+        url: "/system/role-management",
+        children: null,
+        fullPath: ["系统管理", "角色管理"],
+      },
+    ],
+  },
+];
+
+traverseTree(menu, node => {
+  console.log("node", node);
+});
 
 //全局注册Nprogress加载指示器
 import NProgress from "nprogress";

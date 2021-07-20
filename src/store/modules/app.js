@@ -2,7 +2,7 @@
  * app全局配置
  */
 
-import logo from "../../assets/images/logo3.png";
+import logo from "../../assets/images/logo.png";
 
 const getCachePageIndicator = () => {
   let val = localStorage.getItem("pageIndicator");

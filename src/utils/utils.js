@@ -91,28 +91,28 @@ export function deepClone(obj) {
 
 /**
  * 遍历树节点
- * @param {Object} node
+ * @param {Array} node
  * @param {Function} callBack
  * @return {null}
- * {
+ * [{
  *  id：1,
  *  name:"1",
  *  children:[{
  *     id：1,
  *     name:"1",
  *   }]
- * }
+ * }]
  * **/
-export function traverseTree(node = {}, callBack) {
-  // console.log("node", node);
-  typeof callBack == "function" && callBack(node);
-  if (node.children && Array.isArray(node.children)) {
-    node.children.forEach(item => {
+export function traverseTree(data = [], callBack) {
+  if (Array.isArray(data)) {
+    data.forEach(item => {
       typeof callBack == "function" && callBack(item);
       if (item.children && Array.isArray(item.children)) {
-        traverseTree(item, callBack);
+        traverseTree(item.children, callBack);
       }
     });
+  } else {
+    throw new error("请传入数组");
   }
 }
 
