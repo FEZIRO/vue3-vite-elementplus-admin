@@ -74,7 +74,7 @@
           <el-empty description="暂无消息" v-else></el-empty>
           <div style="text-align: center" v-if="noticeList.length !== 0">
             <el-button type="text" size="mini" @click="onClearNoticeClick"
-              >清除通知</el-button
+              >清除消息</el-button
             >
           </div>
         </el-popover>
