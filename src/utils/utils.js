@@ -91,7 +91,7 @@ export function deepClone(obj) {
 
 /**
  * 遍历树节点
- * @param {Array} node
+ * @param {Array} data
  * @param {Function} callBack
  * @return {null}
  * [{
@@ -103,12 +103,16 @@ export function deepClone(obj) {
  *   }]
  * }]
  * **/
-export function traverseTree(data = [], callBack) {
+export function traverseArrayTree(
+  data = [],
+  childNodeKey = "children",
+  callBack
+) {
   if (Array.isArray(data)) {
     data.forEach(item => {
       typeof callBack == "function" && callBack(item);
-      if (item.children && Array.isArray(item.children)) {
-        traverseTree(item.children, callBack);
+      if (item[childNodeKey] && Array.isArray(item[childNodeKey])) {
+        traverseArrayTree(item[childNodeKey], childNodeKey, callBack);
       }
     });
   } else {

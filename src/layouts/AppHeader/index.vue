@@ -25,7 +25,7 @@
         style="margin-right: 20px"
         remote
         reserve-keyword
-        placeholder="页面检索"
+        placeholder="搜索页面"
         :filter-method="search"
         :loading="searchInstance.loading"
         size="small"
@@ -52,19 +52,30 @@
           placement="bottom"
           :width="300"
           trigger="hover"
-          title="通知"
+          :title="`消息中心 (${noticeList.length})`"
           class="header-icon"
         >
           <template #reference>
-            <el-badge :value="notifyList.length" :max="99" type="success">
+            <el-badge
+              :value="noticeList.length"
+              :max="99"
+              type="success"
+              :hidden="noticeList.length === 0"
+            >
               <i class="el-icon-bell header-icon" style="margin: 0"></i>
             </el-badge>
           </template>
-          <div class="notify-popover-panel">
-            <div v-for="item in notifyList" :key="item.id" class="notify-item">
+          <div class="notice-popover-panel" v-if="noticeList.length !== 0">
+            <div v-for="item in noticeList" :key="item.id" class="notice-item">
               <h2>{{ item.content }}</h2>
               <p>{{ item.time }}</p>
             </div>
+          </div>
+          <el-empty description="暂无消息" v-else></el-empty>
+          <div style="text-align: center" v-if="noticeList.length !== 0">
+            <el-button type="text" size="mini" @click="onClearNoticeClick"
+              >清除通知</el-button
+            >
           </div>
         </el-popover>
         <el-popover
@@ -78,7 +89,7 @@
           </template>
           <div class="setting-popover-panel">
             <div class="setting-item">
-              <h2>页面指示器</h2>
+              <h2>页面指示</h2>
               <el-radio-group
                 size="mini"
                 :modelValue="pageIndicator"
@@ -86,6 +97,17 @@
               >
                 <el-radio-button label="标签切换"></el-radio-button>
                 <el-radio-button label="面包屑"></el-radio-button>
+              </el-radio-group>
+            </div>
+            <div class="setting-item" v-if="pageIndicator == '标签切换'">
+              <h2>页面状态</h2>
+              <el-radio-group
+                size="mini"
+                :modelValue="pageKeepAlive"
+                @change="onTogglePageKeepAlive"
+              >
+                <el-radio-button :label="1">缓存</el-radio-button>
+                <el-radio-button :label="0">不缓存</el-radio-button>
               </el-radio-group>
             </div>
             <div class="setting-item">
@@ -147,7 +169,7 @@
  */
 import { useStore } from "vuex";
 import { resetRouter } from "@/router";
-import { getType, traverseTree } from "@/utils/utils.js";
+import { getType, traverseArrayTree } from "@/utils/utils.js";
 import { defineComponent, computed, ref, reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 export default defineComponent({
@@ -163,9 +185,12 @@ export default defineComponent({
     const onToggleMenuCollapse = (val) => {
       store.commit("app/TOGGLE_MENU_COLLAPSE", val);
     };
+    const onTogglePageKeepAlive = (val) => {
+      store.commit("app/SET_PAGE_KEEP_ALIVE", val);
+    };
 
-    //获取通知信息
-    const notifyList = ref([
+    //通知信息
+    const noticeList = ref([
       {
         id: 1,
         content: "这是一条短通知。",
@@ -195,7 +220,9 @@ export default defineComponent({
         time: "2021-6-10",
       },
     ]);
-
+    const onClearNoticeClick = () => {
+      noticeList.value.splice(0, noticeList.value.length);
+    };
     //退出登录
     const onLogoutClick = () => {
       localStorage.clear();
@@ -230,12 +257,16 @@ export default defineComponent({
       }
     };
     const search = (keyword) => {
+      if (!keyword) {
+        searchInstance.result = [];
+        return;
+      }
       console.log("搜索", keyword);
       searchInstance.loading = true;
       let menu = JSON.parse(localStorage.getItem("menu"));
       let result = [];
       let keywordReg = new RegExp(keyword, "i");
-      traverseTree(menu, (node) => {
+      traverseArrayTree(menu, "children", (node) => {
         if (node.type === "page" && keywordReg.test(node.name)) {
           result.push(node);
         }
@@ -243,17 +274,19 @@ export default defineComponent({
       searchInstance.result = result;
       console.log("搜索结果", result);
       searchInstance.loading = false;
-      // cb(result);
     };
     return {
-      notifyList,
+      noticeList,
+      onClearNoticeClick,
       onLogoutClick,
       onMenuTagSwitcherChange,
       onToggleMenuCollapse,
+      onTogglePageKeepAlive,
       appName: computed(() => store.state.app.appName),
       appLogo: computed(() => store.state.app.appLogo),
       menuCollapse: computed(() => store.state.app.menuCollapse),
       pageIndicator: computed(() => store.state.app.pageIndicator),
+      pageKeepAlive: computed(() => store.state.app.pageKeepAlive),
       userInfo: computed(() => store.getters["app/userInfo"]),
       getType,
       keyword,
@@ -317,7 +350,7 @@ export default defineComponent({
   .header--right {
     display: flex;
     align-items: center;
-    .icon-notify {
+    .icon-notice {
       margin-right: 30px;
     }
 
@@ -355,13 +388,13 @@ export default defineComponent({
   }
 }
 
-.notify-popover-panel {
+.notice-popover-panel {
   height: 300px;
   overflow: auto;
   z-index: 99999999999;
   position: relative;
 
-  .notify-item {
+  .notice-item {
     padding: 10px 0;
     box-sizing: border-box;
     border-top: 1px solid rgba(0, 0, 0, 0.05);

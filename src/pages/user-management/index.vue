@@ -6,27 +6,29 @@
   >
     <div class="table-action-bar">
       <div class="bar-left">
-        <el-input
-          v-model="filterForm.keyword"
-          class="search-input"
-          prefix-icon="el-icon-search"
-          size="small"
-          placeholder="用户名/姓名"
-          clearable
-        ></el-input>
-        <Space></Space>
-        <el-select
-          style="width: 100px"
-          v-model="filterForm.sex"
-          class="search-input"
-          prefix-icon="el-icon-search"
-          size="small"
-          placeholder="性别"
-          clearable
-        >
-          <el-option label="男" value="1"></el-option>
-          <el-option label="女" value="2"></el-option>
-        </el-select>
+        <el-space>
+          <el-input
+            v-model="filterForm.keyword"
+            class="search-input"
+            prefix-icon="el-icon-search"
+            size="small"
+            placeholder="用户名/姓名"
+            clearable
+            style="flex-shrink: 0"
+          ></el-input>
+          <el-select
+            style="width: 100px; flex-shrink: 0"
+            v-model="filterForm.sex"
+            class="search-input"
+            prefix-icon="el-icon-search"
+            size="small"
+            placeholder="性别"
+            clearable
+          >
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="2"></el-option>
+          </el-select>
+        </el-space>
       </div>
       <div class="bar-right">
         <el-button
@@ -223,8 +225,6 @@ export default {
 .user-management-page {
   position: relative;
   width: 100%;
-  padding: 0 10px;
-  background: #fff;
   box-sizing: border-box;
 
   .table-action-bar {
@@ -235,7 +235,8 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 10px 0px;
+    flex-wrap: wrap;
+    padding: 10px;
     box-sizing: border-box;
 
     .bar-left {
@@ -243,6 +244,7 @@ export default {
       align-items: center;
       flex-shrink: 0;
       width: 60%;
+
       .search-input {
         width: 200px;
       }
@@ -260,14 +262,20 @@ export default {
         cursor: pointer;
       }
     }
+    .bar-right {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      justify-content: flex-end;
+    }
   }
 
   .table-pager {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    @include flex-row-center-center;
+    padding: 20px 0;
+    box-sizing: border-box;
+    background: #fff;
   }
 }
 </style>

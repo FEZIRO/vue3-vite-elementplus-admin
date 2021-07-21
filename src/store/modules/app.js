@@ -13,6 +13,11 @@ const getCacheMenuCollapse = () => {
   console.log("menuCollapse", val);
   return val;
 };
+const getCachePageKeepAlive = () => {
+  let val = localStorage.getItem("getCachePageKeepAlive");
+  console.log("getCachePageKeepAlive", val);
+  return val;
+};
 
 export default {
   namespaced: true,
@@ -27,6 +32,8 @@ export default {
     pageIndicator: getCachePageIndicator() || "面包屑",
     //菜单折叠
     menuCollapse: getCacheMenuCollapse() || 0,
+    //页面缓存
+    pageKeepAlive: getCachePageKeepAlive()||0,
   }),
 
   getters: {
@@ -58,6 +65,11 @@ export default {
       state.pageIndicator = val;
       localStorage.setItem("pageIndicator", state.pageIndicator);
     },
+
+    SET_PAGE_KEEP_ALIVE(state, val = 0) {
+       state.pageKeepAlive = val;
+       localStorage.setItem("pageKeepAlive", state.pageKeepAlive);
+    }
   },
 
   //用于异步操作state

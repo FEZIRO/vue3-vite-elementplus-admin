@@ -58,9 +58,7 @@ vite-vue3-elementplus-admin
 │  │     └─ office-desk.svg         
 │  ├─ components                    
 │  │  ├─ CountDownBtn               
-│  │  │  └─ index.vue               
-│  │  └─ Space                      
-│  │     └─ index.vue               
+│  │  │  └─ index.vue                           
 │  ├─ hooks                         
 │  │  ├─ useTableData.js            
 │  │  └─ useWindowRect.js           
@@ -137,6 +135,10 @@ vite-vue3-elementplus-admin
 + 重置浏览器默认样式
 + useTable
 + useWindowsRect
++ 页面检索
++ 菜单权限和动态路由
++ 面包屑
++ 页面标签切换
 <br>
 
 ## 劣势

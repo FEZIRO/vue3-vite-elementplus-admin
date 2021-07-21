@@ -195,9 +195,9 @@ export default {
 .role-management-page {
   position: relative;
   width: 100%;
-  padding: 0 10px;
+
   height: $adminContentHeight;
-  background: #fff;
+
   box-sizing: border-box;
 
   .table-action-bar {
@@ -208,7 +208,8 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 10px 0px;
+    flex-wrap: wrap;
+    padding:10px;
     box-sizing: border-box;
 
     .bar-left {
@@ -216,6 +217,7 @@ export default {
       align-items: center;
       flex-shrink: 0;
       width: 60%;
+
       .search-input {
         width: 200px;
       }
@@ -233,12 +235,21 @@ export default {
         cursor: pointer;
       }
     }
+
+    .bar-right {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      justify-content: flex-end;
+    }
   }
 
   .table-pager {
     width: 100%;
     @include flex-row-center-center;
-    margin-top: 20px;
+    padding: 20px 0;
+    box-sizing: border-box;
+    background: #fff;
   }
 }
 </style>
