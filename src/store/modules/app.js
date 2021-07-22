@@ -26,14 +26,19 @@ export default {
     appName: "Vue3-Element+管理系统",
     //平台logo
     appLogo: logo,
-    //端标识
-    device: "desktop", //移动端"mobile" or 桌面端"desktop"
-    //页面指示器（“面包屑”，“标签切换”）
+    //端标识（移动端"mobile"/ 桌面端"desktop"）
+    device: "desktop",
+    //页面指示器（"面包屑"/"标签切换"）
     pageIndicator: getCachePageIndicator() || "面包屑",
     //菜单折叠
     menuCollapse: getCacheMenuCollapse() || 0,
     //页面缓存
-    pageKeepAlive: getCachePageKeepAlive()||0,
+    pageKeepAlive: getCachePageKeepAlive() || 0,
+    //客户端窗口尺寸宽高（resize动态赋值）
+    windowRect: {
+      clientHeight: 0,
+      clientWidth: 0,
+    },
   }),
 
   getters: {
@@ -67,9 +72,16 @@ export default {
     },
 
     SET_PAGE_KEEP_ALIVE(state, val = 0) {
-       state.pageKeepAlive = val;
-       localStorage.setItem("pageKeepAlive", state.pageKeepAlive);
-    }
+      state.pageKeepAlive = val;
+      localStorage.setItem("pageKeepAlive", state.pageKeepAlive);
+    },
+
+    SET_WINDOW_RECT(state, val) {
+      state.windowRect = {
+        clientHeight: val.clientHeight || 0,
+        clientWidth: val.clientWidth || 0,
+      };
+    },
   },
 
   //用于异步操作state

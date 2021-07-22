@@ -11,6 +11,7 @@ const getClientRect = () => {
     document.documentElement.clientHeight || document.body.clientHeight;
   let currentClientWidth =
     document.documentElement.clientWidth || document.body.clientWidth;
+
   return {
     clientWidth: currentClientWidth,
     clientHeight: currentClientHeight,
@@ -23,12 +24,13 @@ export default function useClientRect() {
     clientWidth: getClientRect().clientWidth,
   });
   const store = useStore();
-
+  store.commit("app/SET_WINDOW_RECT", windowRect);
   const onWindowsResize = debounce(() => {
     windowRect.clientHeight = getClientRect().clientHeight;
     windowRect.clientWidth = getClientRect().clientWidth;
     windowRect.clientWidth <= 768 && store.commit("app/SET_DEVICE", "mobile");
     windowRect.clientWidth > 768 && store.commit("app/SET_DEVICE", "desktop");
+    store.commit("app/SET_WINDOW_RECT", windowRect);
     // console.warn("useWindowRect：resize事件", windowRect);
   }, 300);
 

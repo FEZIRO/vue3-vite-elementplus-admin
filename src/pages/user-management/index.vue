@@ -50,7 +50,7 @@
     <el-table
       :data="userManagementTable.tableData.list"
       tooltip-effect="dark"
-      :height="windowRect.clientHeight.value - 250"
+      :height="windowRect.clientHeight - 250"
       :row-style="{ height: '65px' }"
       @selection-change="onTableSelectionChange"
     >
@@ -130,9 +130,10 @@
 </template>
 
 <script>
-import { reactive, onMounted, ref, watch } from "vue";
-import useWindowRect from "@/hooks/useWindowRect.js";
+import { reactive, onMounted, ref, watch, computed } from "vue";
+
 import useTableData from "@/hooks/useTableData.js";
+import { useStore } from "vuex";
 import UserEdit from "./components/UserEdit.vue";
 import http from "@/http";
 export default {
@@ -141,7 +142,7 @@ export default {
     UserEdit,
   },
   setup() {
-    const windowRect = useWindowRect();
+    const store = useStore();
     const userManagementTable = useTableData(http.userManagement.list);
     //表格筛选
     let filterForm = reactive({
@@ -215,7 +216,7 @@ export default {
       onTableSelectionChange,
       onSizeChange,
       onCurrentChange,
-      windowRect,
+      windowRect: computed(() => store.state.app.windowRect),
     };
   },
 };

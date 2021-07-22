@@ -97,9 +97,8 @@
  * 角色管理页面
  *
  */
-import { reactive, onMounted, ref, watch } from "vue";
+import { reactive, onMounted, ref, watch, computed } from "vue";
 import RoleEdit from "./components/RoleEdit.vue";
-import useWindowRect from "@/hooks/useWindowRect.js";
 import http from "@/http";
 import useTableData from "@/hooks/useTableData.js";
 
@@ -109,8 +108,6 @@ export default {
     RoleEdit: RoleEdit,
   },
   setup() {
-    const windowRect = useWindowRect();
-    console.log("windowRect", windowRect);
     const roleManagementTable = useTableData(http.roleManagement.list);
 
     //表格筛选
@@ -185,7 +182,7 @@ export default {
       onTableSelectionChange,
       onSizeChange,
       onCurrentChange,
-      windowRect,
+      windowRect: computed(() => store.state.app.windowRect),
     };
   },
 };
@@ -209,7 +206,7 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding:10px;
+    padding: 10px;
     box-sizing: border-box;
 
     .bar-left {
