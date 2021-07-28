@@ -50,12 +50,12 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title;
   }
   let userInfo = localStorage.getItem("userInfo") || null;
-  if (to.fullPath == "/") {
-    if (!userInfo) {
-      router.replace("/login");
-      return;
-    }
+
+  if (to.fullPath == "/" && !userInfo) {
+    router.replace("/login");
+    return;
   }
+
   if (to.meta.auth) {
     if (!userInfo) {
       router.push({ path: "/login" });
@@ -89,7 +89,7 @@ export function createRoute(menu) {
           layout: menuItem.layout || "admin",
           tagsView: menuItem.tagsView || true,
           tagsViewAffix: menuItem.tagsViewAffix || false,
-          breadcrumb: menuItem.fullPath || [],
+          breadcrumb: menuItem.breadcrumb || [],
         },
       });
     }

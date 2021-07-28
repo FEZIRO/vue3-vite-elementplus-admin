@@ -83,6 +83,7 @@ export default defineComponent({
 
     //标签切换
     const onTabsSwitch = (tab) => {
+      console.log("切换tab", tab);
       if (tab.paneName == route.path) return;
       router.push({ path: tab.paneName });
       addTags();

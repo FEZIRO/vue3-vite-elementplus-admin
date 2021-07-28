@@ -32,14 +32,23 @@
  *
  */
 
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, watch } from "vue";
 import { useStore } from "vuex";
 import useWindowRect from "@/hooks/useWindowRect";
 export default defineComponent({
   name: "AdminLayout",
   setup() {
     const store = useStore();
-    useWindowRect();
+    const { clientWidth, clientHeight } = useWindowRect();
+    watch([clientWidth, clientHeight], (newVal) => {
+      console.log("newVal", newVal);
+      newVal[0] <= 768 && store.commit("app/SET_DEVICE", "mobile");
+      newVal[0] > 768 && store.commit("app/SET_DEVICE", "desktop");
+      store.commit("app/SET_WINDOW_RECT", {
+        clientWidth: newVal[0],
+        clientHeight: newVal[1],
+      });
+    });
     return {
       sideMenuCollapse: computed(() => store.state.app.menuCollapse),
       pageSwither: computed(() => store.state.app.pageIndicator),

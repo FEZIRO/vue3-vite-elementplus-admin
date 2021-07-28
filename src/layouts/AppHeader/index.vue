@@ -43,7 +43,7 @@
         >
           <div>
             <span style="margin-right: 10px">{{ item.name }}</span>
-            <span style="color: #ccc">{{ item.fullPath.join(" / ") }}</span>
+            <span style="color: #ccc">{{ item.breadcrumb.join(" / ") }}</span>
           </div>
         </el-option>
       </el-select>

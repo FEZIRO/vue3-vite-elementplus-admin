@@ -150,7 +150,7 @@ export default {
           children: null,
           path: [],
           tagsViewAffix: true,
-          fullPath: ["首页"],
+          breadcrumb: ["首页"],
         });
         localStorage.setItem("userInfo", JSON.stringify(res.userInfo));
         localStorage.setItem("menu", JSON.stringify(res.menu));

@@ -30,6 +30,7 @@ export default {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  flex-wrap: wrap;
   height: 100%;
   width: 100%;
   background: #fff;
@@ -37,7 +38,7 @@ export default {
   .home-img {
     width: 400px;
     height: auto;
-    margin-right: 150px;
+    margin: 0 100px;
     > img {
       transform: rotateY(180deg);
     }
@@ -53,6 +54,7 @@ export default {
     display: flex;
     flex-direction: column;
     text-align: left;
+    margin: 0 100px;
 
     .tips-title {
       margin-bottom: 30px;

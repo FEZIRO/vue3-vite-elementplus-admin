@@ -34,7 +34,7 @@
     <el-table
       :data="roleManagementTable.tableData.list"
       tooltip-effect="dark"
-      :height="windowRect.clientHeight.value - 250"
+      :height="windowRect.clientHeight - 250"
       :row-style="{ height: '65px' }"
       @selection-change="onTableSelectionChange"
     >
@@ -101,7 +101,7 @@ import { reactive, onMounted, ref, watch, computed } from "vue";
 import RoleEdit from "./components/RoleEdit.vue";
 import http from "@/http";
 import useTableData from "@/hooks/useTableData.js";
-
+import { useStore } from "vuex";
 export default {
   name: "role-management",
   components: {
@@ -109,7 +109,7 @@ export default {
   },
   setup() {
     const roleManagementTable = useTableData(http.roleManagement.list);
-
+    const store = useStore();
     //表格筛选
     let filterForm = reactive({
       keyword: "",

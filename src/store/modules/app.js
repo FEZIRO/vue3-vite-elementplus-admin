@@ -3,7 +3,7 @@
  */
 
 import logo from "../../assets/images/logo.png";
-
+import { getClientRect } from "@/utils/utils";
 const getCachePageIndicator = () => {
   let val = localStorage.getItem("pageIndicator");
   return val;
@@ -36,8 +36,8 @@ export default {
     pageKeepAlive: getCachePageKeepAlive() || 0,
     //客户端窗口尺寸宽高（resize动态赋值）
     windowRect: {
-      clientHeight: 0,
-      clientWidth: 0,
+      clientHeight: getClientRect().clientHeight,
+      clientWidth: getClientRect().clientWidth,
     },
   }),
 

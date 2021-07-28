@@ -3,35 +3,17 @@
  */
 
 import { toRefs, onMounted, onBeforeUnmount, reactive } from "vue";
-import { useStore } from "vuex";
-import { debounce } from "@/utils/utils";
-
-const getClientRect = () => {
-  let currentClientHeight =
-    document.documentElement.clientHeight || document.body.clientHeight;
-  let currentClientWidth =
-    document.documentElement.clientWidth || document.body.clientWidth;
-
-  return {
-    clientWidth: currentClientWidth,
-    clientHeight: currentClientHeight,
-  };
-};
+import { debounce, getClientRect } from "@/utils/utils";
 
 export default function useClientRect() {
   const windowRect = reactive({
     clientHeight: getClientRect().clientHeight,
     clientWidth: getClientRect().clientWidth,
   });
-  const store = useStore();
-  store.commit("app/SET_WINDOW_RECT", windowRect);
+
   const onWindowsResize = debounce(() => {
     windowRect.clientHeight = getClientRect().clientHeight;
     windowRect.clientWidth = getClientRect().clientWidth;
-    windowRect.clientWidth <= 768 && store.commit("app/SET_DEVICE", "mobile");
-    windowRect.clientWidth > 768 && store.commit("app/SET_DEVICE", "desktop");
-    store.commit("app/SET_WINDOW_RECT", windowRect);
-    // console.warn("useWindowRect：resize事件", windowRect);
   }, 300);
 
   onMounted(() => {

@@ -25,14 +25,14 @@ Mock.mock("/login", "post", config => {
           //   type: "page",
           //   url: "/home",
           //   children: null,
-          //   fullPath: ["首页"],
+          //   breadcrumb: ["首页"],
           // },
           {
             id: "1",
             name: "系统管理",
             icon: "el-icon-setting",
             url: "/system",
-            fullPath: ["系统管理"],
+            breadcrumb: ["系统管理"],
             type: "group",
             children: [
               {
@@ -42,7 +42,7 @@ Mock.mock("/login", "post", config => {
                 type: "page",
                 url: "/system/user-management",
                 children: null,
-                fullPath: ["系统管理", "用户管理"],
+                breadcrumb: ["系统管理", "用户管理"],
               },
               {
                 id: "1-2",
@@ -51,7 +51,7 @@ Mock.mock("/login", "post", config => {
                 type: "page",
                 url: "/system/role-management",
                 children: null,
-                fullPath: ["系统管理", "角色管理"],
+                breadcrumb: ["系统管理", "角色管理"],
               },
             ],
           },
@@ -62,7 +62,7 @@ Mock.mock("/login", "post", config => {
           //   type: "page",
           //   url: "/chart",
           //   children: null,
-          //   fullPath: [
+          //   breadcrumb: [
           //     {
           //       name: "统计",
           //       url: "/chart",
@@ -94,7 +94,7 @@ Mock.mock("/login", "post", config => {
           //   url: "/home",
           //   children: null,
           //   path: [],
-          //   fullPath: ["首页"],
+          //   breadcrumb: ["首页"],
           // },
         ],
       },

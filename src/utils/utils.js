@@ -159,33 +159,50 @@ export function debounce(fn, delay) {
   };
 }
 
-/**
- * 以json格式的本地存储数据（localStorge）
- * @param {String} key
- * @param {Any} value
- * @return {null}
- */
-export const setJsonItem = (key, value) => {
-  try {
-    if (key && value) {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-  } catch (error) {
-    console.error("setJsonItemError", error);
-  }
-};
+// /**
+//  * 以json格式的本地存储数据（localStorge）
+//  * @param {String} key
+//  * @param {Any} value
+//  * @return {null}
+//  */
+// export const setJsonItem = (key, value) => {
+//   try {
+//     if (key && value) {
+//       localStorage.setItem(key, JSON.stringify(value));
+//     }
+//   } catch (error) {
+//     console.error("setJsonItemError", error);
+//   }
+// };
+
+// /**
+//  * 获取以json格式存储的数据（localStorge）
+//  * @param {String} key
+//  * @return {Any}
+//  */
+// export const getJsonItem = (key = "") => {
+//   try {
+//     let value = localStorage.getItem(key);
+//     if (value) value = JSON.parse(value);
+//     return value;
+//   } catch (error) {
+//     console.error("getJsonItemError", error);
+//   }
+// };
 
 /**
- * 获取以json格式存储的数据（localStorge）
- * @param {String} key
- * @return {Any}
+ * 获取客户端浏览器内容窗口宽高
+ * @param null
+ * @return {Object}
  */
-export const getJsonItem = (key = "") => {
-  try {
-    let value = localStorage.getItem(key);
-    if (value) value = JSON.parse(value);
-    return value;
-  } catch (error) {
-    console.error("getJsonItemError", error);
-  }
+export const getClientRect = () => {
+  let currentClientHeight =
+    document.documentElement.clientHeight || document.body.clientHeight;
+  let currentClientWidth =
+    document.documentElement.clientWidth || document.body.clientWidth;
+
+  return {
+    clientWidth: currentClientWidth,
+    clientHeight: currentClientHeight,
+  };
 };
