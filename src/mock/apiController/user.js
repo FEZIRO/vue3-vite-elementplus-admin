@@ -18,15 +18,6 @@ Mock.mock("/login", "post", config => {
             "https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3305298991,2024211813&fm=26&gp=0.jpg",
         },
         menu: [
-          // {
-          //   id: "0",
-          //   name: "首页",
-          //   icon: "el-icon-s-home",
-          //   type: "page",
-          //   url: "/home",
-          //   children: null,
-          //   breadcrumb: ["首页"],
-          // },
           {
             id: "1",
             name: "系统管理",
@@ -55,20 +46,6 @@ Mock.mock("/login", "post", config => {
               },
             ],
           },
-          // {
-          //   id: "2",
-          //   name: "统计",
-          //   icon: "",
-          //   type: "page",
-          //   url: "/chart",
-          //   children: null,
-          //   breadcrumb: [
-          //     {
-          //       name: "统计",
-          //       url: "/chart",
-          //     },
-          //   ],
-          // },
         ],
       },
     };
@@ -86,16 +63,20 @@ Mock.mock("/login", "post", config => {
             "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2448425926,3379370176&fm=11&gp=0.jpg",
         },
         menu: [
-          // {
-          //   id: "0",
-          //   name: "首页",
-          //   icon: "",
-          //   type: "page",
-          //   url: "/home",
-          //   children: null,
-          //   path: [],
-          //   breadcrumb: ["首页"],
-          // },
+          {
+            id: "2",
+            name: "统计",
+            icon: "",
+            type: "page",
+            url: "/chart",
+            children: null,
+            breadcrumb: [
+              {
+                name: "统计",
+                url: "/chart",
+              },
+            ],
+          },
         ],
       },
     };

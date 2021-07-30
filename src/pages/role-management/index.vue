@@ -4,33 +4,30 @@
     v-loading="roleManagementTable.tableData.isPageLoading"
     element-loading-text="拼命加载中"
   >
-    <div class="table-action-bar">
-      <div class="bar-left">
-        <el-input
-          v-model="filterForm.keyword"
-          class="search-input"
-          prefix-icon="el-icon-search"
-          size="small"
-          placeholder="角色名称"
-        ></el-input>
-      </div>
-      <div class="bar-right">
-        <el-button
-          type="primary"
-          size="small"
-          icon="el-icon-circle-plus-outline"
-          @click="onTableAddClick"
-          >添加</el-button
-        >
-        <el-button
-          type="danger"
-          size="small"
-          icon="el-icon-delete"
-          @click="onTableDeleteClick"
-          >删除</el-button
-        >
-      </div>
-    </div>
+    <el-space wrap style="width: 100%">
+      <el-input
+        v-model="filterForm.keyword"
+        class="search-input"
+        prefix-icon="el-icon-search"
+        size="small"
+        placeholder="角色名称"
+      ></el-input>
+      <el-button
+        type="primary"
+        size="small"
+        icon="el-icon-circle-plus-outline"
+        @click="onTableAddClick"
+        >添加</el-button
+      >
+      <el-button
+        type="danger"
+        size="small"
+        icon="el-icon-delete"
+        :disabled="tableSelection.length == 0"
+        @click="onTableDeleteClick"
+        >删除</el-button
+      >
+    </el-space>
     <el-table
       :data="roleManagementTable.tableData.list"
       tooltip-effect="dark"
@@ -188,65 +185,20 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .role-management-page {
-  position: relative;
   width: 100%;
-
-  height: $adminContentHeight;
-
   box-sizing: border-box;
-
-  .table-action-bar {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: #fff;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 10px;
-    box-sizing: border-box;
-
-    .bar-left {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      width: 60%;
-
-      .search-input {
-        width: 200px;
-      }
-
-      .filter-btn {
-        margin-left: 10px;
-      }
-
-      .search-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 30%;
-        cursor: pointer;
-      }
-    }
-
-    .bar-right {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      justify-content: flex-end;
-    }
-  }
+  padding: 10px;
+  background: #fff;
+  overflow: auto;
+  position: relative;
 
   .table-pager {
     width: 100%;
     @include flex-row-center-center;
     padding: 20px 0;
     box-sizing: border-box;
-    background: #fff;
   }
 }
 </style>

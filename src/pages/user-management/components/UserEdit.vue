@@ -187,14 +187,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .avatar-uploader {
   margin-bottom: 30px;
+  text-align: center;
   .avatar-upload-wrap {
     position: relative;
     height: 100px;
     border-radius: 100%;
     overflow: hidden;
+
     .uploader-bottom {
       width: 100%;
       padding: 4px 0;
@@ -204,6 +206,7 @@ export default {
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
+      text-align: center;
       .icon-upload {
         font-size: 16px;
         color: #fff;

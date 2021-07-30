@@ -7,14 +7,18 @@
       </section>
     </div>
     <!-- <div class="header-center">
-      <el-menu default-active="1" mode="horizontal">
-        <el-menu-item index="1">模块一</el-menu-item>
-        <el-menu-item index="2">模块二</el-menu-item>
+      <el-menu
+        :default-active="activeModule"
+        mode="horizontal"
+        @select="onModuleSelect"
+      >
+        <el-menu-item index="module1">模块一</el-menu-item>
+        <el-menu-item index="modlue2">模块二</el-menu-item>
       </el-menu>
     </div> -->
     <div class="header--right">
       <i
-        class="el-icon-search search-btn"
+        class="el-icon-search search-btn fun-btn"
         @click="onToggleSearch"
         v-if="!searchVisible"
       ></i>
@@ -52,8 +56,8 @@
           placement="bottom"
           :width="300"
           trigger="hover"
-          :title="`消息中心 (${noticeList.length})`"
           class="header-icon"
+          style="padding: 0"
         >
           <template #reference>
             <el-badge
@@ -62,31 +66,38 @@
               type="success"
               :hidden="noticeList.length === 0"
             >
-              <i class="el-icon-bell header-icon" style="margin: 0"></i>
+              <i
+                class="el-icon-message-solid header-icon"
+                style="margin: 0"
+              ></i>
             </el-badge>
           </template>
+          <el-tabs>
+            <el-tab-pane label="未读消息" name="0"></el-tab-pane>
+          </el-tabs>
           <div class="notice-popover-panel" v-if="noticeList.length !== 0">
             <div v-for="item in noticeList" :key="item.id" class="notice-item">
-              <h2>{{ item.content }}</h2>
-              <p>{{ item.time }}</p>
+              <i class="el-icon-message-solid message-icon"></i>
+              <div class="notify-content">
+                <h2>{{ item.content }}</h2>
+                <p>{{ item.time }}</p>
+              </div>
             </div>
           </div>
           <el-empty description="暂无消息" v-else></el-empty>
-          <div style="text-align: center" v-if="noticeList.length !== 0">
+          <div class="panel-btn-group" v-if="noticeList.length !== 0">
             <el-button type="text" size="mini" @click="onClearNoticeClick"
               >清除消息</el-button
             >
           </div>
         </el-popover>
-        <el-popover
-          placement="bottom-end"
-          :width="250"
-          trigger="hover"
-          title="设置"
-        >
+        <el-popover placement="bottom" :width="250" trigger="hover">
           <template #reference>
-            <i class="el-icon-setting header-icon"></i>
+            <i class="el-icon-s-tools header-icon"></i>
           </template>
+          <el-tabs>
+            <el-tab-pane label="设置" name="0"></el-tab-pane>
+          </el-tabs>
           <div class="setting-popover-panel">
             <div class="setting-item">
               <h2>页面指示</h2>
@@ -153,8 +164,14 @@
               }}</el-tag>
             </div>
             <div class="info-item">
-              <i class="el-icon-warning-outline"></i>
-              <div @click="onLogoutClick" style="width: 100%">退出登录</div>
+              <el-button
+                type="text"
+                size="mini"
+                icon="el-icon-warning-outline"
+                @click="onLogoutClick"
+                style="color: red"
+                >退出登录</el-button
+              >
             </div>
           </div>
         </el-popover>
@@ -171,11 +188,12 @@ import { useStore } from "vuex";
 import { resetRouter } from "@/router";
 import { getType, traverseArrayTree } from "@/utils/utils.js";
 import { defineComponent, computed, ref, reactive, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 export default defineComponent({
   name: "AdminHeader",
   setup() {
     const router = useRouter();
+
     const store = useStore();
 
     const onMenuTagSwitcherChange = (val) => {
@@ -222,6 +240,11 @@ export default defineComponent({
     ]);
     const onClearNoticeClick = () => {
       noticeList.value.splice(0, noticeList.value.length);
+    };
+    const noticeTabActive = ref("0");
+    const onNoticeTabChange = (tab) => {
+      console.log(tab);
+      noticeTabActive.value = tab.paneName;
     };
     //退出登录
     const onLogoutClick = () => {
@@ -275,6 +298,18 @@ export default defineComponent({
       console.log("搜索结果", result);
       searchInstance.loading = false;
     };
+
+    //模块切换
+    // const activeModule = ref(route.query.module);
+    // const onModuleSelect = (index) => {
+    //   router.replace({
+    //     query: {
+    //       module: index,
+    //     },
+    //   });
+    //   activeModule.value = index;
+    // };
+
     return {
       noticeList,
       onClearNoticeClick,
@@ -295,6 +330,8 @@ export default defineComponent({
       onToggleSearch,
       searchVisible,
       searchInstance,
+      noticeTabActive,
+      onNoticeTabChange,
     };
   },
 });
@@ -304,7 +341,6 @@ export default defineComponent({
 .admin-header {
   width: 100%;
   height: $appHeaderHeight;
-  background: $appHeaderBgColor;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -313,8 +349,8 @@ export default defineComponent({
   z-index: 999;
   transition: all 0.5s;
   color: #000;
-  border-bottom: 2px solid #f2f2f2;
   font-weight: bold;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 
   .header--left {
     display: flex;
@@ -335,16 +371,11 @@ export default defineComponent({
 
       .admin-title {
         font-weight: bold;
-        /* color: $primaryColor; */
-        font-size: 20px;
+        font-size: 18px;
         vertical-align: middle;
         margin-left: 10px;
       }
     }
-  }
-
-  .header-center {
-    /* flex-grow: 1; */
   }
 
   .header--right {
@@ -356,9 +387,19 @@ export default defineComponent({
 
     .search-btn {
       cursor: pointer;
-      margin-right: 20px;
+      margin-right: 10px;
       font-weight: bold;
       font-size: 20px;
+      padding: 10px;
+      box-sizing: border-box;
+      &:hover {
+        transition: background-color 0.5s;
+        background: rgba(#000, 0.05);
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 100px;
+        color: $primaryColor;
+      }
     }
 
     .user-info-section {
@@ -395,16 +436,31 @@ export default defineComponent({
   position: relative;
 
   .notice-item {
-    padding: 10px 0;
+    padding: 10px;
     box-sizing: border-box;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-
-    > h2 {
-      color: rgba(0, 0, 0, 0.6);
+    border-top: 1px solid rgba(0, 0, 0, 0.01);
+    transition: all 0.5s;
+    display: flex;
+    &:hover {
+      background: rgba(#000, 0.05);
     }
-    > p {
-      margin-top: 5px;
-      color: rgba(0, 0, 0, 0.3);
+    .message-icon {
+      color: $primaryColor;
+      padding-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .notify-content {
+      margin-left: 10px;
+      > h2 {
+        color: rgba(0, 0, 0, 0.6);
+        white-space: pre-wrap;
+      }
+      > p {
+        margin-top: 5px;
+        font-size: 12px;
+        color: rgba(8, 2, 2, 0.2);
+      }
     }
   }
 }
@@ -413,24 +469,20 @@ export default defineComponent({
   overflow: auto;
   z-index: 99999999999;
   position: relative;
-
   .info-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
     box-sizing: border-box;
     cursor: pointer;
     transition: all 0.5s;
     box-sizing: border-box;
     width: 100%;
+    padding: 5px 0;
     border-top: 1px solid rgba(0, 0, 0, 0.03);
+
     &:hover {
       background: rgba(#000, 0.05);
-    }
-
-    > i {
-      margin-right: 5px;
     }
   }
 
@@ -454,7 +506,6 @@ export default defineComponent({
     align-items: center;
     padding: 10px 0;
     box-sizing: border-box;
-    border-top: 1px solid rgba(0, 0, 0, 0.03);
     > h2 {
       color: rgba(0, 0, 0, 0.6);
     }
@@ -468,10 +519,16 @@ export default defineComponent({
 .avatar {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   > i {
     color: #ccc;
     margin-left: 5px;
   }
+}
+
+.panel-btn-group {
+  text-align: center;
+  padding-top: 10px;
 }
 
 .header-icon {

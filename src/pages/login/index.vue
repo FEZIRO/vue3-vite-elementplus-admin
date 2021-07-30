@@ -1,91 +1,100 @@
 <template>
   <div class="login-page">
-    <section class="login-intro">
-      <h1 class="intro-title">{{ appName }}</h1>
-      <p class="intro-subtitle">欢迎登录！</p>
-      <img :src="loginImg" alt="login" />
-    </section>
-    <section class="login-panel">
-      <h1>{{ loginStatus ? "登录" : "注册" }}</h1>
-      <el-form
-        :model="loginForm"
-        class="login-form"
-        v-show="loginStatus"
-        label-position="top"
-      >
-        <el-form-item label="账号">
-          <el-input placeholder="请输入账号" v-model="loginForm.account" />
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input
-            type="password"
-            placeholder="请输入密码"
-            v-model="loginForm.password"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            class="login-btn"
-            @click="onLoginClick"
-            :loading="loginBtnLoading"
-          >
-            登录
-          </el-button>
-          <div class="form-bottom">
-            <el-button type="text" @click="onTogglePanelStatus">
+    <div class="panel-container">
+      <section class="login-intro">
+        <h1 class="intro-title">{{ appName }}</h1>
+        <p class="intro-subtitle">欢迎登录！</p>
+        <img :src="loginImg" alt="login" />
+      </section>
+      <section class="login-panel">
+        <h1>{{ loginStatus ? "登录" : "注册" }}</h1>
+        <el-form
+          :model="loginForm"
+          class="login-form"
+          v-show="loginStatus"
+          label-position="top"
+        >
+          <el-form-item label="账号">
+            <el-input placeholder="请输入账号" v-model="loginForm.account" />
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input
+              type="password"
+              placeholder="请输入密码"
+              v-model="loginForm.password"
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              class="login-btn"
+              @click="onLoginClick"
+              :loading="loginBtnLoading"
+            >
+              登录
+            </el-button>
+            <div class="form-bottom">
+              <el-button type="text" @click="onTogglePanelStatus">
+                注册
+              </el-button>
+              <el-button type="text"> 第三方登录 </el-button>
+            </div>
+          </el-form-item>
+        </el-form>
+        <el-form
+          :model="registerForm"
+          class="login-form"
+          v-show="!loginStatus"
+          label-position="top"
+        >
+          <el-form-item label="手机号码" name="phone">
+            <el-input
+              placeholder="请输入手机号码"
+              v-model="registerForm.phone"
+            />
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input
+              type="password"
+              placeholder="请设置密码"
+              v-model="registerForm.password"
+            />
+          </el-form-item>
+          <el-form-item label="验证码">
+            <el-row style="width: 100%">
+              <el-col :span="14">
+                <el-input
+                  placeholder="请输入验证码"
+                  v-model="registerForm.code"
+                />
+              </el-col>
+              <el-col :span="10">
+                <CountDownBtn
+                  :defaultTime="4"
+                  @getCode="onGetCodeClick"
+                ></CountDownBtn>
+              </el-col>
+            </el-row>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              class="login-btn"
+              @click="onRegisterClick"
+            >
               注册
             </el-button>
-            <el-button type="text"> 第三方登录 </el-button>
-          </div>
-        </el-form-item>
-      </el-form>
-      <el-form
-        :model="registerForm"
-        class="login-form"
-        v-show="!loginStatus"
-        label-position="top"
-      >
-        <el-form-item label="手机号码" name="phone">
-          <el-input placeholder="请输入手机号码" v-model="registerForm.phone" />
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input
-            type="password"
-            placeholder="请设置密码"
-            v-model="registerForm.password"
-          />
-        </el-form-item>
-        <el-form-item label="验证码">
-          <el-row style="width: 100%">
-            <el-col :span="14">
-              <el-input
-                placeholder="请输入验证码"
-                v-model="registerForm.code"
-              />
-            </el-col>
-            <el-col :span="10">
-              <CountDownBtn
-                :defaultTime="4"
-                @getCode="onGetCodeClick"
-              ></CountDownBtn>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" class="login-btn" @click="onRegisterClick">
-            注册
-          </el-button>
-          <div class="form-bottom">
-            <el-button type="text" @click="onTogglePanelStatus">
-              密码登录
-            </el-button>
-            <el-button type="text"> 第三方登录 </el-button>
-          </div>
-        </el-form-item>
-      </el-form>
-    </section>
-    <p class="code-by">Code By FEZIRO</p>
+            <div class="form-bottom">
+              <el-button type="text" @click="onTogglePanelStatus">
+                密码登录
+              </el-button>
+              <el-button type="text"> 第三方登录 </el-button>
+            </div>
+          </el-form-item>
+        </el-form>
+      </section>
+      <span class="code-by">Code By FEZIRO</span>
+    </div>
   </div>
 </template>
 
@@ -191,88 +200,89 @@ export default {
 .login-page {
   width: 100%;
   height: 100vh;
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .login-intro {
-    width: 500px;
-    height: 500px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px 5px rgba(#000, 0.02);
-    background-color: #fff;
-    padding: 50px;
-    box-sizing: border-box;
-    padding-right: 60px;
-
-    > img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .intro-title,
-    .intro-subtitle {
-      text-align: left;
-    }
-
-    .intro-title {
-      font-weight: bold;
-      font-size: 22px;
-    }
-
-    .intro-subtitle {
-      font-size: 14px;
-      color: #888;
-      margin-top: 10px;
-    }
-  }
-
-  .login-panel {
+  background: #f6f7f9;
+  @include flex-row-center-center;
+  .panel-container {
     position: relative;
-    left: -50px;
-    width: 400px;
-    min-height: 500px;
-    padding: 50px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px 5px rgba(#000, 0.02);
-    background-color: #fff;
-    box-sizing: border-box;
-    transition: all 0.5s;
-
-    h1 {
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-      width: 90%;
-      margin: 0 auto;
-    }
-
-    .login-form {
-      margin-top: 40px;
-
-      .login-btn {
+    @include flex-row-center-center;
+    width: auto;
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.01);
+    .login-intro {
+      width: 500px;
+      height: 500px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      background-color: #fff;
+      padding: 50px;
+      box-sizing: border-box;
+      padding-right: 60px;
+      border-right: 1px dashed rgba(0, 0, 0, 0.1);
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+      > img {
         width: 100%;
-        height: 40px;
-        margin-top: 10px;
+        height: 100%;
       }
 
-      .form-bottom {
+      .intro-title,
+      .intro-subtitle {
+        text-align: left;
+      }
+
+      .intro-title {
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      .intro-subtitle {
+        font-size: 14px;
+        color: #888;
         margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
       }
     }
-  }
 
-  .code-by {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ccc;
+    .login-panel {
+      width: 400px;
+      min-height: 500px;
+      padding: 50px;
+      border-radius: 6px;
+      background-color: #fff;
+      box-sizing: border-box;
+      transition: all 0.5s;
+      flex-shrink: 0;
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .login-form {
+        margin-top: 40px;
+
+        .login-btn {
+          width: 100%;
+          height: 40px;
+          margin-top: 30px;
+        }
+
+        .form-bottom {
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+    .code-by {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ccc;
+    }
   }
 }
 </style>

@@ -29,19 +29,16 @@
 <script>
 /**
  * 管理端布局
- *
  */
-
 import { defineComponent, computed, watch } from "vue";
 import { useStore } from "vuex";
-import useWindowRect from "@/hooks/useWindowRect";
+import useWindowSize from "@/hooks/useWindowSize";
 export default defineComponent({
   name: "AdminLayout",
   setup() {
     const store = useStore();
-    const { clientWidth, clientHeight } = useWindowRect();
+    const { clientWidth, clientHeight } = useWindowSize();
     watch([clientWidth, clientHeight], (newVal) => {
-      console.log("newVal", newVal);
       newVal[0] <= 768 && store.commit("app/SET_DEVICE", "mobile");
       newVal[0] > 768 && store.commit("app/SET_DEVICE", "desktop");
       store.commit("app/SET_WINDOW_RECT", {
@@ -64,6 +61,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   font-family: "Microsoft YaHei", "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "jiangcheng-xie-heiti";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -82,15 +80,10 @@ export default defineComponent({
       flex-shrink: 0;
       height: $breadcrumbHeight;
       background: transparent;
-      border-bottom: 1px solid #eee;
-      .resize-menu-btn {
-        color: #666;
-        cursor: pointer;
-        margin-right: 10px;
-      }
+      background-color: #fff;
+      border-bottom: 0.5px solid rgba(#000, 0.05);
     }
     .app-main-content {
-      /* width: calc(100vw - #{$sideMenuWidth}); */
       width: 100%;
       height: $adminContentHeight;
       overflow-y: auto;

@@ -18,6 +18,7 @@ $--font-path: 'element-plus/lib/theme-chalk/fonts';
   height: 1px;
 }
 
+
 .el-overlay {
   display: flex;
   justify-content: center;
@@ -30,13 +31,12 @@ $--font-path: 'element-plus/lib/theme-chalk/fonts';
   display: flex;
   flex-direction: column;
   margin: 0 !important;
-  // position: absolute;
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
-  /*height:600px;*/
   max-height: calc(100% - 30px);
   max-width: calc(100% - 30px);
+}
+
+.el-dialog__wrapper {
+  transition-duration: 0.3s;
 }
 
 .el-dialog .el-dialog__body {
@@ -105,6 +105,12 @@ $--font-path: 'element-plus/lib/theme-chalk/fonts';
 
 .el-button {
   border-radius: 2px;
+}
+
+.el-button--default {
+  border: none;
+  outline: none;
+  background-color: rgba(#000, 0.05);
 }
 
 .el-menu.el-menu--horizontal {

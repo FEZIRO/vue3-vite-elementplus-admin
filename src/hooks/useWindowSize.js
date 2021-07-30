@@ -5,7 +5,7 @@
 import { toRefs, onMounted, onBeforeUnmount, reactive } from "vue";
 import { debounce, getClientRect } from "@/utils/utils";
 
-export default function useClientRect() {
+export default function useWindowSize() {
   const windowRect = reactive({
     clientHeight: getClientRect().clientHeight,
     clientWidth: getClientRect().clientWidth,

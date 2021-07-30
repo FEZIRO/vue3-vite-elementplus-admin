@@ -4,53 +4,48 @@
     v-loading="userManagementTable.tableData.isLoading"
     element-loading-text="拼命加载中"
   >
-    <div class="table-action-bar">
-      <div class="bar-left">
-        <el-space>
-          <el-input
-            v-model="filterForm.keyword"
-            class="search-input"
-            prefix-icon="el-icon-search"
-            size="small"
-            placeholder="用户名/姓名"
-            clearable
-            style="flex-shrink: 0"
-          ></el-input>
-          <el-select
-            style="width: 100px; flex-shrink: 0"
-            v-model="filterForm.sex"
-            class="search-input"
-            prefix-icon="el-icon-search"
-            size="small"
-            placeholder="性别"
-            clearable
-          >
-            <el-option label="男" value="1"></el-option>
-            <el-option label="女" value="2"></el-option>
-          </el-select>
-        </el-space>
-      </div>
-      <div class="bar-right">
-        <el-button
-          type="primary"
-          size="small"
-          icon="el-icon-circle-plus-outline"
-          @click="onTableAddClick"
-          >添加</el-button
-        >
-        <el-button
-          type="danger"
-          size="small"
-          icon="el-icon-delete"
-          @click="onTableDeleteClick"
-          >删除</el-button
-        >
-      </div>
-    </div>
+    <el-space wrap style="width: 100%">
+      <el-input
+        v-model="filterForm.keyword"
+        class="search-input"
+        prefix-icon="el-icon-search"
+        size="small"
+        placeholder="用户名/姓名"
+        clearable
+        style="width: 200px"
+      ></el-input>
+      <el-select
+        style="width: 100px"
+        v-model="filterForm.sex"
+        class="search-input"
+        prefix-icon="el-icon-search"
+        size="small"
+        placeholder="性别"
+        clearable
+      >
+        <el-option label="男" value="1"></el-option>
+        <el-option label="女" value="2"></el-option>
+      </el-select>
+      <el-button
+        type="primary"
+        size="small"
+        icon="el-icon-circle-plus-outline"
+        @click="onTableAddClick"
+        >添加</el-button
+      >
+      <el-button
+        type="danger"
+        size="small"
+        icon="el-icon-delete"
+        :disabled="tableSelection.length == 0"
+        @click="onTableDeleteClick"
+        >删除</el-button
+      >
+    </el-space>
     <el-table
       :data="userManagementTable.tableData.list"
       tooltip-effect="dark"
-      :height="windowRect.clientHeight - 250"
+      :height="windowRect.clientHeight - 240"
       :row-style="{ height: '65px' }"
       @selection-change="onTableSelectionChange"
     >
@@ -123,10 +118,11 @@
       </el-pagination>
     </div>
     <UserEdit
-      ref="userTableEdit"
-      @confirm="userManagementTable.refresh"
-    ></UserEdit>
+    ref="userTableEdit"
+    @confirm="userManagementTable.refresh"
+  ></UserEdit>
   </div>
+  
 </template>
 
 <script>
@@ -222,61 +218,19 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .user-management-page {
-  position: relative;
   width: 100%;
   box-sizing: border-box;
-
-  .table-action-bar {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background: #fff;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 10px;
-    box-sizing: border-box;
-
-    .bar-left {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      width: 60%;
-
-      .search-input {
-        width: 200px;
-      }
-
-      .filter-btn {
-        margin-left: 10px;
-      }
-
-      .search-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 30%;
-        cursor: pointer;
-      }
-    }
-    .bar-right {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-      justify-content: flex-end;
-    }
-  }
+  padding: 10px;
+  background: #fff;
+  overflow: auto;
 
   .table-pager {
     width: 100%;
     @include flex-row-center-center;
     padding: 20px 0;
     box-sizing: border-box;
-    background: #fff;
   }
 }
 </style>

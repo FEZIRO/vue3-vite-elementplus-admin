@@ -9,7 +9,6 @@ import store from "@/store";
 import "./mock/index";
 import "./styles/elementui-variables.scss";
 
-
 //全局注册Nprogress加载指示器
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
