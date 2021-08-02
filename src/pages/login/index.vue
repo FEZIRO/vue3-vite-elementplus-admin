@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="panel-container">
-      <section class="login-intro">
+      <section class="login-intro" v-show="loginStatus">
         <h1 class="intro-title">{{ appName }}</h1>
         <p class="intro-subtitle">欢迎登录！</p>
         <img :src="loginImg" alt="login" />
@@ -206,17 +206,17 @@ export default {
     position: relative;
     @include flex-row-center-center;
     width: auto;
-    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.01);
+    border-radius: 6px;
     .login-intro {
       width: 500px;
       height: 500px;
-      border-radius: 6px;
       flex-shrink: 0;
       background-color: #fff;
       padding: 50px;
       box-sizing: border-box;
       padding-right: 60px;
       border-right: 1px dashed rgba(0, 0, 0, 0.1);
+
       @media screen and (max-width: 768px) {
         display: none;
       }
@@ -246,7 +246,6 @@ export default {
       width: 400px;
       min-height: 500px;
       padding: 50px;
-      border-radius: 6px;
       background-color: #fff;
       box-sizing: border-box;
       transition: all 0.5s;

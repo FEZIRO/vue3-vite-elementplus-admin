@@ -78,6 +78,8 @@ export default defineComponent({
     &.is-active {
       font-weight: bold;
       background: #fff !important;
+      box-sizing: border-box;
+
       span {
         color: $primaryColor !important;
       }
