@@ -1,12 +1,12 @@
 <br>
 <br>
-<center><img src="../vite-vue3-elementplus-admin/src/assets/images/logo.png" style="height:100px;"></center>
+<div style="text-align:center">
+<img src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/logo.png?raw=true" style="height:100px">
+</div>
 
-## <center>vue3-vite-elementplus-admin<br>管理系统快速开发模板</center>
 
+## <p style="text-align:center">vue3-vite-elementplus-admin<br>管理系统快速开发模板</p>
 <br>
-<br>
-
 ​ 基于`Vue3.0`前端开发框架和`ElementPlus`UI 框架，并使用了最前沿，最具潜力的同时也是 Vue 作者尤雨溪所创造的前端工程化工具 `Vite`，与`Webpack`相比，极大的缩短了开发打包和热更新的效率。可用于现代化管理系统的初始开发模板，可节省一些重复性的工程初始化搭建工作。
 <br>
 
@@ -24,11 +24,27 @@
 
 ## 预览
   + github地址
-    > http://
+    > https://github.com/FEZIRO/vue3-vite-elementplus-admin
 
   + 在线预览
     > http://
      
+  <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%99%BB%E5%BD%95.png?raw=true" alt="登录"/>
+  <p style="text-align:center">登录</p>
+  <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E6%B3%A8%E5%86%8C.png?raw=true" alt="注册"/>
+   <p style="text-align:center">注册</p>
+  <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E9%A6%96%E9%A1%B5.png?raw=true" alt="首页"/>
+  <p style="text-align:center">首页</p>
+  <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86.png?raw=true" alt="用户管理"/>
+  <p style="text-align:center">用户管理</p>
+  <div style="text-align:center">
+    <img style="margin:0 auto;margin-top:20px 0;width:auto;height:100%" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%95%8C%E9%9D%A21.png?raw=true" alt="移动端界面"/>
+    <p style="text-align:center">移动端界面</p>
+  </div>
+  <div style="text-align:center">
+    <img style="margin:0 auto;margin-top:20px 0;width:auto;height:100%" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%8F%9C%E5%8D%95.png?raw=true" alt="移动端菜单"/>
+    <p style="text-align:center">移动端菜单</p>
+  </div>
   <br>
 ## 使用库/工具
 
@@ -132,12 +148,12 @@
 │ │ └─ `index.js` (store 主入口)  
 │ │  
 │ ├─ `styles`（全局样式-文件夹）  
-│ │ ├─ `animation.scss` （css 动画样式表)
-│ │ ├─ `color.scss` （颜色变量样式表)
+│ │ ├─ `animation.scss`（css 动画样式表)
+│ │ ├─ `color.scss`（颜色变量样式表)
 │ │ ├─ `custom-default-browser-style.scss` (自定义浏览器默认样式表)
-│ │ ├─ `elementui-variables.scss` （自定义 elementui 默认主题和样式表)
-│ │ ├─ `global.scss` （全局样式表)  
-│ │ └─ `mixin.scss` （scss 的 mixin 样式表)  
+│ │ ├─ `elementui-variables.scss`（自定义 elementui 默认主题和样式表)
+│ │ ├─ `global.scss`（全局样式表)  
+│ │ └─ `mixin.scss`（scss 的 mixin 样式表)  
 │ │
 │ ├─ `others`（其他-文件夹）  
 │ │ ├─ `utils.js` （工具函数文件）  
@@ -224,15 +240,12 @@
     router.matcher = newRouter.matcher;
   }
   ```
-
   <br>
-
 - ##### 菜单检索
 
   根据后端返回的菜单结构的页面名称进行递归检索。
 
   <br>
-
 - ##### 面包屑
 
   最简单的处理方式就是根据后端返回的菜单设置个`breadcrumb`数组字段处理即可，如有其它需求可根据实际数据情况而定。
@@ -331,4 +344,4 @@
 - Vue 3 不兼容IE浏览器。
 <br>
  <br>
-<center>By FEZIRO </center>
+<p style="text-align:center">By FEZIRO </p>
