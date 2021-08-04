@@ -158,10 +158,10 @@
 │ │ └─ `index.js` (store 主入口)  
 │ │  
 │ ├─ `styles`（全局样式-文件夹）  
-│ │ ├─ `animation.scss`（css 动画样式表)
-│ │ ├─ `color.scss`（颜色变量样式表)
-│ │ ├─ `custom-default-browser-style.scss` (自定义浏览器默认样式表)
-│ │ ├─ `elementui-variables.scss`（自定义 elementui 默认主题和样式表)
+│ │ ├─ `animation.scss`（css 动画样式表)<br>
+│ │ ├─ `color.scss`（颜色变量样式表)<br>
+│ │ ├─ `custom-default-browser-style.scss` (自定义浏览器默认样式表)<br>
+│ │ ├─ `elementui-variables.scss`（自定义 elementui 默认主题和样式表)<br>
 │ │ ├─ `global.scss`（全局样式表)  
 │ │ └─ `mixin.scss`（scss 的 mixin 样式表)  
 │ │
