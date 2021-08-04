@@ -7,7 +7,7 @@
 
 ## <p align=center>vue3-vite-elementplus-admin<br>管理系统快速开发模板</p>
 <br>
-​ 基于`Vue3.0`前端开发框架和`ElementPlus`UI 框架，并使用了最前沿，最具潜力的同时也是 Vue 作者尤雨溪所创造的前端工程化工具 `Vite`，与`Webpack`相比，极大的缩短了开发打包和热更新的效率。可用于现代化管理系统的初始开发模板，可节省一些重复性的工程初始化搭建工作。
+​ 基于Vue3.0前端开发框架和 ElementPlus UI框架，并使用了最前沿，最具潜力的同时也是 Vue 作者尤雨溪所创造的前端工程化工具 Vite，与Webpack相比，极大的缩短了开发打包和热更新的效率。可用于现代化管理系统的初始开发模板，可节省一些重复性的工程初始化搭建工作。
 <br>
 
 ## 特性
@@ -189,7 +189,6 @@
   $--color-primary: #80cbc4;
   ```
   <br>
-
 - ##### 重置浏览器默认样式
 
   ​ 请参考`style`文件夹下的`custom-default-browser-style.scss`文件，本文件修改浏览器默认滚动条样式。
@@ -228,15 +227,12 @@
   //表格数据（默认字段 list，totalCount，isLoading ）
   console.log(table.tableData);
   ```
-
   <br>
-
 - ##### useWindowSize 与动态表格高度
 
   ​ 当固定表头时需要限制 elementUI 表格高度，数据则会表现为溢出滚动，如页面缩放的时候需要占满屏幕，则可监测浏览器高度`clientHeight`动态赋值表格高度，以达到缩放浏览器窗口表格大小不变的效果。
   ​ `useWindowRect`封装了监听浏览器宽高的可复用逻辑，此 hook 将动态的`clientHeight`和`clientWidth`值设置存储到 vuex 的`store/modules/app.js`文件内的`windowRect`字段，因此每个页面可引入动态的宽高值来设置表格高度。
   <br>
-
 - ##### 菜单权限和动态路由
   ​如管理系统的权限是根据菜单管理页面和权限配置页面来设置的并且通过后端返回菜单区分账号权限，则前端可在登录时根据返回的菜单渲染侧边栏菜单和使用`VueRouter`的`router.addRoute`API 来动态添加路由。
   动态添加路由会在浏览器刷新时丢失，可把菜单用`localStorage`缓存，每次刷新浏览器都动态添加一次路由即可解决。
@@ -279,9 +275,7 @@
     }]
   }
   ```
-
   <br>
-
 - ##### 移动端适配
 
   使用 CSS 媒体查询、Javascript的`clientWidth`客户端宽度检测来区分移动端或桌面端。管理端类型界面不建议在小屏设备进行操作。
@@ -291,9 +285,7 @@
   - mobile：小于 750px（小屏设备）
 
   如有更多断点检测需求可自行在`app.vue`中设置。
-
   <br>
-
 - ##### 系统设置
   可配置化或用户自行选择。
     <br>
@@ -304,9 +296,7 @@
     当页面指示为`标签切换`时可选页面切换时是否缓存页面状态，使用`<keep-alive>`组件缓存。
     <br>
   - 菜单栏折叠。
-  
   <br>
-
 - ##### 右键自定义菜单与Teleport
   当指示器为`标签切换`时，标签切换栏区域点击右键出现自定义菜单，可删除全部已打开的标签；
   自定义右键菜单采用Vue3新特性`teleport`的方式加载到`body`元素里面，防止父元素定位干扰。
@@ -319,7 +309,7 @@
     </div>
   </teleport>
   ```
-<br>
+  <br>
 
 - ##### http请求与axios全局请求配置
   全局请求配置文件在`/http/axios.js`下配置；请求接口按页面模块进行分类，页面名称对应api接口文件名称，存放在`/http/apis/`文件夹下，再通过`/http/index.js`文件进行统一导出。
@@ -331,13 +321,11 @@
   如 http.roleManagement.tableList()
   ```
   <br>
-
 - ##### 环境切换
   根据项目的根目录下的`.env.xxx.`文件区分环境，以`VITE_`开头的字段可在`process.env`中获取。如有更多需求可自行添加。
   + `.env.development`开发环境
   + `.env.production`正式环境
   <br>
-
 - ##### Vite基本命令
   ```
   // package.json
@@ -354,4 +342,4 @@
 - Vue 3 不兼容IE浏览器。
 <br>
  <br>
-<p style="text-align:center">By FEZIRO </p>
+<p align=center>By FEZIRO </p>
