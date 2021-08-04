@@ -106,7 +106,7 @@
 <script>
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
-
+import { userTypeOptions, sexOptions } from "@/others/options.js";
 export default {
   name: "UserEdit",
   emits: ["confirm"],
@@ -175,8 +175,8 @@ export default {
     return {
       modalConfig,
       data,
-      sexOptions: computed(() => store.state.options.sexOptions),
-      roleOptions: computed(() => store.state.options.roleOptions),
+      sexOptions: sexOptions,
+      roleOptions: userTypeOptions,
 
       hideModal,
       showModal,

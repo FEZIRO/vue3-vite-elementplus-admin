@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { getType } from "@/utils/utils";
+import { getType } from "@/others/utils";
 import { ElMessage } from "element-plus";
 
 export default function useTableData(api) {

@@ -78,8 +78,9 @@
         @current-change="onCurrentChange"
         :page-size="roleManagementTable.tableParams.pageSize"
         :page-sizes="roleManagementTable.PAGE_SIZES"
-        layout="sizes, total, prev, pager, next"
+        :layout="`total,prev,pager,next,${device === 'mobile' ? '' : 'sizes'}`"
         :total="roleManagementTable.tableData.totalCount"
+        :small="device === 'mobile' ? true : false"
       >
       </el-pagination>
     </div>
@@ -180,6 +181,7 @@ export default {
       onSizeChange,
       onCurrentChange,
       windowRect: computed(() => store.state.app.windowRect),
+      device: computed(() => store.state.app.device),
     };
   },
 };

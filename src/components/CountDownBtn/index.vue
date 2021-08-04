@@ -19,7 +19,6 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    console.log("context", context);
     let countDownTime = ref(0);
     countDownTime.value = props.defaultTime;
     let disableBtn = ref(false);

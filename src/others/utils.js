@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 /**
- * 对象数组映射成对象结构
+ * 对象数组映射成对象Map结构
  * @param {Array}
  * @return {Object}
  */
@@ -42,51 +42,16 @@ export function timeFormat(time, formatStr = "YYYY-MM-DD HH:mm") {
 }
 
 /**
- * 对象数组去重
- * @param {Number} num
- * @return {Date}
- */
-export function objArrUnique(arr, uniqueKey = "id") {
-  const res = new Map();
-  return arr.filter(
-    item => !res.has(item[uniqueKey]) && res.set(item[uniqueKey], 1)
-  );
-}
-
-/**
  * 类型检测
  * @param {Any} value
  * @return {String}
- * 返回类型字符如： Array String
+ * 返回类型字符如： Array String Number
  */
 export function getType(value) {
   let type = Object.prototype.toString.call(value);
   type = type.replace(/^\[object\s/, "");
   type = type.replace(/\]$/, "");
   return type;
-}
-
-/**
- * 深度复制（基本版，只检测数组和对象）
- * @param {Object/Array} obj
- * @return {Object/Array}
- */
-export function deepClone(obj) {
-  const objClone = Array.isArray(obj) ? [] : {};
-  if (obj && typeof obj === "object") {
-    for (const key in obj) {
-      if (Reflect.get(obj, key)) {
-        // 判断ojb子元素是否为对象，如果是，递归复制
-        if (obj[key] && typeof obj[key] === "object") {
-          objClone[key] = deepClone(obj[key]);
-        } else {
-          // 如果不是，简单复制
-          objClone[key] = obj[key];
-        }
-      }
-    }
-  }
-  return objClone;
 }
 
 /**
@@ -158,37 +123,6 @@ export function debounce(fn, delay) {
     }, delay);
   };
 }
-
-// /**
-//  * 以json格式的本地存储数据（localStorge）
-//  * @param {String} key
-//  * @param {Any} value
-//  * @return {null}
-//  */
-// export const setJsonItem = (key, value) => {
-//   try {
-//     if (key && value) {
-//       localStorage.setItem(key, JSON.stringify(value));
-//     }
-//   } catch (error) {
-//     console.error("setJsonItemError", error);
-//   }
-// };
-
-// /**
-//  * 获取以json格式存储的数据（localStorge）
-//  * @param {String} key
-//  * @return {Any}
-//  */
-// export const getJsonItem = (key = "") => {
-//   try {
-//     let value = localStorage.getItem(key);
-//     if (value) value = JSON.parse(value);
-//     return value;
-//   } catch (error) {
-//     console.error("getJsonItemError", error);
-//   }
-// };
 
 /**
  * 获取客户端浏览器内容窗口宽高

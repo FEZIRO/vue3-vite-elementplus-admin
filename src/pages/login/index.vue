@@ -7,6 +7,9 @@
         <img :src="loginImg" alt="login" />
       </section>
       <section class="login-panel">
+        <h1 style="margin-bottom: 10px" v-if="device == 'mobile'">
+          {{ appName }}
+        </h1>
         <h1>{{ loginStatus ? "登录" : "注册" }}</h1>
         <el-form
           :model="loginForm"
@@ -179,7 +182,6 @@ export default {
       code: "",
     });
     const onRegisterClick = () => {};
-
     return {
       loginForm,
       loginImg: loginSvg,
@@ -191,6 +193,7 @@ export default {
       onGetCodeClick,
       onTogglePanelStatus,
       appName: computed(() => store.state.app.appName),
+      device: computed(() => store.state.app.device),
     };
   },
 };
@@ -206,18 +209,21 @@ export default {
     position: relative;
     @include flex-row-center-center;
     width: auto;
-    border-radius: 6px;
+
     .login-intro {
       width: 500px;
       height: 500px;
       flex-shrink: 0;
-      background-color: #fff;
+      background-color: $primaryColor;
       padding: 50px;
+      color: #fff !important;
       box-sizing: border-box;
       padding-right: 60px;
-      border-right: 1px dashed rgba(0, 0, 0, 0.1);
+      /* border-right: 1px dashed rgba(0, 0, 0, 0.1); */
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 750px) {
         display: none;
       }
       > img {
@@ -237,7 +243,6 @@ export default {
 
       .intro-subtitle {
         font-size: 14px;
-        color: #888;
         margin-top: 10px;
       }
     }
@@ -250,6 +255,13 @@ export default {
       box-sizing: border-box;
       transition: all 0.5s;
       flex-shrink: 0;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+
+      @media screen and (max-width: 750px) {
+        width: 90vw;
+        padding: 50px 30px;
+      }
 
       h1 {
         text-align: center;

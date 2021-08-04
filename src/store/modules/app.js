@@ -3,19 +3,17 @@
  */
 
 import logo from "../../assets/images/logo.png";
-import { getClientRect } from "@/utils/utils";
+import { getClientRect } from "@/others/utils";
 const getCachePageIndicator = () => {
   let val = localStorage.getItem("pageIndicator");
   return val;
 };
 const getCacheMenuCollapse = () => {
   let val = localStorage.getItem("menuCollapse");
-  console.log("menuCollapse", val);
   return val;
 };
 const getCachePageKeepAlive = () => {
   let val = localStorage.getItem("getCachePageKeepAlive");
-  console.log("getCachePageKeepAlive", val);
   return val;
 };
 

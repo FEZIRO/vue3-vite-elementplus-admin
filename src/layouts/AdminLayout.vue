@@ -1,12 +1,16 @@
 
 <template>
   <div class="layout">
-    <app-header></app-header>
+    <AppHeader v-if="device == 'desktop'"></AppHeader>
+    <MobileAppHeader v-if="device == 'mobile'"></MobileAppHeader>
+
     <div class="layout-main">
-      <app-side-bar
-        :menu="sideMenu"
-        :sideMenuCollapse="sideMenuCollapse == 1"
-      ></app-side-bar>
+      <aside>
+        <AppSideBar
+          :menu="sideMenu"
+          :sideMenuCollapse="sideMenuCollapse == 1"
+        ></AppSideBar>
+      </aside>
       <div class="app-main">
         <div class="app-main-top">
           <AppBreadcrumb
@@ -18,9 +22,9 @@
           ></AppTagsViewSwitcher>
         </div>
 
-        <div class="app-main-content">
+        <main class="app-main-content">
           <slot></slot>
-        </div>
+        </main>
       </div>
     </div>
   </div>
@@ -30,27 +34,19 @@
 /**
  * 管理端布局
  */
-import { defineComponent, computed, watch } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
-import useWindowSize from "@/hooks/useWindowSize";
+
+
 export default defineComponent({
   name: "AdminLayout",
   setup() {
     const store = useStore();
-    const { clientWidth, clientHeight } = useWindowSize();
-    watch([clientWidth, clientHeight], (newVal) => {
-      newVal[0] <= 768 && store.commit("app/SET_DEVICE", "mobile");
-      newVal[0] > 768 && store.commit("app/SET_DEVICE", "desktop");
-      store.commit("app/SET_WINDOW_RECT", {
-        clientWidth: newVal[0],
-        clientHeight: newVal[1],
-      });
-    });
     return {
       sideMenuCollapse: computed(() => store.state.app.menuCollapse),
       pageSwither: computed(() => store.state.app.pageIndicator),
       sideMenu: computed(() => store.getters["app/menu"]),
-      appLogo: computed(() => store.state.app.appLogo),
+      device: computed(() => store.state.app.device),
     };
   },
 });
@@ -60,13 +56,15 @@ export default defineComponent({
 .layout {
   width: 100%;
   height: 100%;
-  font-family: "Microsoft YaHei", "Avenir", Helvetica, Arial, sans-serif;
-  font-family: "jiangcheng-xie-heiti";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
   .layout-main {
     display: flex;
+    aside {
+      height: calc(100vh - #{$appHeaderHeight});
+      @media screen and (max-width: 750px) {
+        display: none;
+      }
+    }
   }
   .app-main {
     width: 100%;
@@ -88,6 +86,7 @@ export default defineComponent({
       height: $adminContentHeight;
       overflow-y: auto;
       box-sizing: border-box;
+      overflow-x: hidden;
     }
   }
 }

@@ -3,7 +3,7 @@
  */
 
 import { toRefs, onMounted, onBeforeUnmount, reactive } from "vue";
-import { debounce, getClientRect } from "@/utils/utils";
+import { debounce, getClientRect } from "@/others/utils";
 
 export default function useWindowSize() {
   const windowRect = reactive({

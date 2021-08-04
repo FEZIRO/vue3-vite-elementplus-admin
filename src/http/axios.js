@@ -4,7 +4,7 @@
 import axios from "axios";
 
 //根据.env文件切换环境
-// axios.defaults.baseURL = process.env.React_APP_SERVER_HOST;
+// axios.defaults.baseURL = process.env.VITE_APP_SERVER_HOST;
 
 axios.defaults.timeout = 36000000;
 axios.interceptors.request.use(

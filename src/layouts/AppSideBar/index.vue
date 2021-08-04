@@ -9,6 +9,7 @@
     text-color="#fff"
     collapse-transition
     :default-active="$route.path"
+    @select="onMenuSelect"
   >
     <MenuItem :menuList="menu"></MenuItem>
   </el-menu>
@@ -36,18 +37,27 @@ export default defineComponent({
   components: {
     MenuItem,
   },
+  setup(props, context) {
+    const onMenuSelect = (index) => {
+      context.emit("menuSelect",index)
+    };
+    return {
+      onMenuSelect,
+    };
+  },
 });
 </script>
 
 <style lang="scss">
 .admin-aside-menu {
-  height: calc(100vh - #{$appHeaderHeight});
-  background-color: #f6f7f9;
+  height: 100%;
+  background-color: $bgColor;
   font-size: 14px;
   overflow: auto;
   user-select: none;
   overflow-x: hidden;
   border: none;
+
   &:not(.el-menu--collapse) {
     width: $sideMenuWidth;
   }
@@ -56,7 +66,7 @@ export default defineComponent({
   .el-menu-item {
     text-align: left !important;
     transition: all 0.05s;
-    background-color: #f6f7f9;
+    background-color: $bgColor;
     line-height: 50px;
     height: 50px;
 

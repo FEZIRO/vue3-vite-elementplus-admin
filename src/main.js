@@ -47,6 +47,12 @@ app.component("AppBreadcrumb", AppBreadcrumb);
 import AppHeader from "@/layouts/AppHeader/index.vue";
 app.component("AppHeader", AppHeader);
 
+import MobileAppHeader from "@/layouts/MobileAppHeader/index.vue";
+app.component("MobileAppHeader", MobileAppHeader);
+
+import MobileAppSideBar from "@/layouts/MobileAppSideBar/index.vue";
+app.component("MobileAppSideBar", MobileAppSideBar);
+
 app.use(ElementPlus, { locale });
 app.use(router);
 app.use(store);

@@ -12,6 +12,7 @@
   font-size: 14px;
   line-height: 30px;
   margin-left: 8px;
+
   .el-breadcrumb__item {
     span {
       color: rgba(#000, 0.4);

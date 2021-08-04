@@ -112,17 +112,17 @@
         @current-change="onCurrentChange"
         :page-size="userManagementTable.tableParams.pageSize"
         :page-sizes="userManagementTable.PAGE_SIZES"
-        layout="sizes, total, prev, pager, next"
+        :layout="`total,prev,pager,next,${device === 'mobile' ? '' : 'sizes'}`"
         :total="userManagementTable.tableData.totalCount"
+        :small="device === 'mobile' ? true : false"
       >
       </el-pagination>
     </div>
     <UserEdit
-    ref="userTableEdit"
-    @confirm="userManagementTable.refresh"
-  ></UserEdit>
+      ref="userTableEdit"
+      @confirm="userManagementTable.refresh"
+    ></UserEdit>
   </div>
-  
 </template>
 
 <script>
@@ -213,6 +213,8 @@ export default {
       onSizeChange,
       onCurrentChange,
       windowRect: computed(() => store.state.app.windowRect),
+
+      device: computed(() => store.state.app.device),
     };
   },
 };
@@ -225,6 +227,7 @@ export default {
   padding: 10px;
   background: #fff;
   overflow: auto;
+  position: relative;
 
   .table-pager {
     width: 100%;

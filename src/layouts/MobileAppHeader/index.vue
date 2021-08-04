@@ -1,56 +1,9 @@
 <template>
-  <header class="admin-header">
+  <header class="mobile-admin-header">
     <div class="header--left">
-      <section class="logo-container">
-        <img class="admin-logo" :src="appLogo" :alt="appName" v-if="appLogo" />
-        <h1 class="admin-title">{{ appName }}</h1>
-      </section>
+      <i class="el-icon-s-fold fold-btn" @click="onShowMobileMenu"></i>
     </div>
-    <!-- <div class="header-center">
-      <el-menu
-        :default-active="activeModule"
-        mode="horizontal"
-        @select="onModuleSelect"
-      >
-        <el-menu-item index="module1">模块一</el-menu-item>
-        <el-menu-item index="modlue2">模块二</el-menu-item>
-      </el-menu>
-    </div> -->
     <div class="header--right">
-      <i
-        class="el-icon-search search-btn fun-btn"
-        @click="onToggleSearch"
-        v-if="!searchVisible"
-      ></i>
-      <el-select
-        v-else
-        v-model="keyword"
-        filterable
-        style="margin-right: 20px"
-        remote
-        reserve-keyword
-        placeholder="搜索页面"
-        :filter-method="search"
-        :loading="searchInstance.loading"
-        size="small"
-        clearable
-      >
-        <template #prefix>
-          <i class="el-icon-search" style="margin: 0 10px"></i>
-        </template>
-        <el-option
-          v-for="item in searchInstance.result"
-          :key="item.name"
-          :label="item.name"
-          :value="item.name"
-          @click="onSearchSelect(item)"
-        >
-          <div>
-            <span style="margin-right: 10px">{{ item.name }}</span>
-            <span style="color: #ccc">{{ item.breadcrumb.join(" / ") }}</span>
-          </div>
-        </el-option>
-      </el-select>
       <section class="user-info-section">
         <el-popover
           placement="bottom"
@@ -65,11 +18,9 @@
               :max="99"
               type="success"
               :hidden="noticeList.length === 0"
+              style="margin-right: 20px"
             >
-              <i
-                class="el-icon-message-solid header-icon"
-                style="margin: 0"
-              ></i>
+              <i class="el-icon-message-solid" style="font-size: 20px"></i>
             </el-badge>
           </template>
           <el-tabs>
@@ -91,49 +42,6 @@
             >
           </div>
         </el-popover>
-        <el-popover placement="bottom" :width="250" trigger="hover">
-          <template #reference>
-            <i class="el-icon-s-tools header-icon"></i>
-          </template>
-          <el-tabs>
-            <el-tab-pane label="设置" name="0"></el-tab-pane>
-          </el-tabs>
-          <div class="setting-popover-panel">
-            <div class="setting-item">
-              <h2>页面指示</h2>
-              <el-radio-group
-                size="mini"
-                :modelValue="pageIndicator"
-                @change="onMenuTagSwitcherChange"
-              >
-                <el-radio-button label="标签切换"></el-radio-button>
-                <el-radio-button label="面包屑"></el-radio-button>
-              </el-radio-group>
-            </div>
-            <div class="setting-item" v-if="pageIndicator == '标签切换'">
-              <h2>页面状态</h2>
-              <el-radio-group
-                size="mini"
-                :modelValue="pageKeepAlive"
-                @change="onTogglePageKeepAlive"
-              >
-                <el-radio-button :label="1">缓存</el-radio-button>
-                <el-radio-button :label="0">不缓存</el-radio-button>
-              </el-radio-group>
-            </div>
-            <div class="setting-item">
-              <h2>侧边菜单</h2>
-              <el-radio-group
-                size="mini"
-                :modelValue="menuCollapse"
-                @change="onToggleMenuCollapse"
-              >
-                <el-radio-button :label="1">折叠</el-radio-button>
-                <el-radio-button :label="0">不折叠</el-radio-button>
-              </el-radio-group>
-            </div>
-          </div>
-        </el-popover>
         <el-popover
           placement="bottom-end"
           :width="150"
@@ -147,7 +55,6 @@
                 :src="userInfo.avatar"
                 size="small"
               ></el-avatar>
-              <span class="username">{{ userInfo.name || "--" }}</span>
               <i class="el-icon-arrow-down"></i>
             </div>
           </template>
@@ -177,35 +84,25 @@
         </el-popover>
       </section>
     </div>
+    <MobileAppSideBar ref="mobileAppSideBar"></MobileAppSideBar>
   </header>
 </template>
 
 <script>
 /**
- * 头部组件
+ * 移动端头部组件
  */
 import { useStore } from "vuex";
 import { resetRouter } from "@/router";
 import { getType, traverseArrayTree } from "@/others/utils.js";
 import { defineComponent, computed, ref, reactive, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 export default defineComponent({
   name: "AdminHeader",
   setup() {
     const router = useRouter();
 
     const store = useStore();
-
-    const onMenuTagSwitcherChange = (val) => {
-      store.commit("app/SET_MENU_TAG_SWITCHER", val);
-    };
-
-    const onToggleMenuCollapse = (val) => {
-      store.commit("app/TOGGLE_MENU_COLLAPSE", val);
-    };
-    const onTogglePageKeepAlive = (val) => {
-      store.commit("app/SET_PAGE_KEEP_ALIVE", val);
-    };
 
     //通知信息
     const noticeList = ref([
@@ -243,11 +140,13 @@ export default defineComponent({
     };
     const noticeTabActive = ref("0");
     const onNoticeTabChange = (tab) => {
+      console.log(tab);
       noticeTabActive.value = tab.paneName;
     };
     //退出登录
     const onLogoutClick = () => {
       localStorage.clear();
+      console.log("store", store);
       store.commit("tagsView/delAllVisitedRoutes");
       resetRouter();
 
@@ -256,86 +155,28 @@ export default defineComponent({
       });
     };
 
-    //页面检索
-    const keyword = ref("");
-    const searchInstance = reactive({
-      loading: false,
-      result: [],
-    });
-    watch(keyword, (newVal) => {
-      if (!newVal) searchInstance.result = [];
-    });
-    const searchVisible = ref(false);
-    const onToggleSearch = () => {
-      keyword.value = "";
-      searchVisible.value = !searchVisible.value;
+    const mobileAppSideBar = ref(null);
+    const onShowMobileMenu = () => {
+      console.log("折叠");
+      mobileAppSideBar.value.show();
     };
-    const onSearchSelect = (data) => {
-      if (data.url) {
-        router.push({
-          path: data.url,
-        });
-      }
-    };
-    const search = (keyword) => {
-      if (!keyword) {
-        searchInstance.result = [];
-        return;
-      }
-  
-      searchInstance.loading = true;
-      let menu = JSON.parse(localStorage.getItem("menu"));
-      let result = [];
-      let keywordReg = new RegExp(keyword, "i");
-      traverseArrayTree(menu, "children", (node) => {
-        if (node.type === "page" && keywordReg.test(node.name)) {
-          result.push(node);
-        }
-      });
-      searchInstance.result = result;
-      searchInstance.loading = false;
-    };
-
-    //模块切换
-    // const activeModule = ref(route.query.module);
-    // const onModuleSelect = (index) => {
-    //   router.replace({
-    //     query: {
-    //       module: index,
-    //     },
-    //   });
-    //   activeModule.value = index;
-    // };
 
     return {
       noticeList,
       onClearNoticeClick,
       onLogoutClick,
-      onMenuTagSwitcherChange,
-      onToggleMenuCollapse,
-      onTogglePageKeepAlive,
-      appName: computed(() => store.state.app.appName),
-      appLogo: computed(() => store.state.app.appLogo),
-      menuCollapse: computed(() => store.state.app.menuCollapse),
-      pageIndicator: computed(() => store.state.app.pageIndicator),
-      pageKeepAlive: computed(() => store.state.app.pageKeepAlive),
       userInfo: computed(() => store.getters["app/userInfo"]),
-      getType,
-      keyword,
-      onSearchSelect,
-      search,
-      onToggleSearch,
-      searchVisible,
-      searchInstance,
       noticeTabActive,
       onNoticeTabChange,
+      mobileAppSideBar,
+      onShowMobileMenu,
     };
   },
 });
 </script>
 
 <style lang="scss">
-.admin-header {
+.mobile-admin-header {
   width: 100%;
   height: $appHeaderHeight;
   display: flex;
@@ -354,24 +195,9 @@ export default defineComponent({
     align-items: center;
     flex-shrink: 0;
 
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: auto;
-      padding: 0 10px;
-      flex-shrink: 0;
-      .admin-logo {
-        width: auto;
-        height: 22px;
-      }
-
-      .admin-title {
-        font-weight: bold;
-        font-size: 18px;
-        vertical-align: middle;
-        margin-left: 10px;
-      }
+    .fold-btn {
+      margin: 0 20px;
+      font-size: 22px;
     }
   }
 
@@ -489,22 +315,6 @@ export default defineComponent({
 
     &:hover {
       background: #fff;
-    }
-  }
-}
-
-.setting-popover-panel {
-  overflow: auto;
-  z-index: 99999999999;
-  position: relative;
-  .setting-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    box-sizing: border-box;
-    > h2 {
-      color: rgba(0, 0, 0, 0.6);
     }
   }
 }

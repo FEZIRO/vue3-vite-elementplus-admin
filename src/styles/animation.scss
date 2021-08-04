@@ -1,8 +1,11 @@
 /**
- *  css动画
+ *  动画
  */
 
+/************** Vue <transition>组件动画 ***************/
+
 .fade {
+
   &-enter-active,
   &-leave-active {
     transition: all 0.3s ease;
@@ -12,5 +15,60 @@
   &-leave-to {
     opacity: 0;
     transform: translateY(-1000px);
+  }
+}
+
+
+
+/************** Css动画 ***************/
+
+//上划出
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+//上下循环跳动
+@keyframes upAndDown {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+//移动端侧边栏滑入
+@keyframes sideBarSlipIn {
+  0% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(-500px);
+  }
+}
+
+//移动端侧边栏滑出
+@keyframes sideBarSlipOut {
+  0% {
+    transform: translateX(-500px);
+  }
+
+  100% {
+    transform: translateX(0px);
   }
 }
