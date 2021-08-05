@@ -4,7 +4,6 @@ import strip from "@rollup/plugin-strip";
 import viteCompression from "vite-plugin-compression";
 const path = require("path");
 
-
 /**
  * @type {import('vite').UserConfig}
  */
