@@ -26,8 +26,11 @@
   + github地址
     > https://github.com/FEZIRO/vue3-vite-elementplus-admin
 
-  + 在线预览
-    > http://
+  + 在线预览（账号admin，密码admin） 
+    > https://feziro.github.io/vue3-vite-elementplus-admin/
+    
+    
+  
   <div align=center>
     <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%99%BB%E5%BD%95.png?raw=true" alt="登录"/>
   <p style="text-align:center">登录</p>
@@ -339,7 +342,7 @@
   <br>
 
 - ##### http请求与axios全局请求配置
-  全局请求配置文件在`/http/axios.js`下配置；请求接口按页面模块进行分类，页面名称对应api接口文件名称，存放在`/http/apis/`文件夹下，再通过`/http/index.js`文件进行统一导出。
+  全局请求配置文件在`/src/http/axios.js`下配置；请求接口按页面模块进行分类，页面名称对应api接口文件名称，存放在`/src/http/apis/`文件夹下，再通过`/src/http/index.js`文件进行统一导出。
   ```
   // http接口请求使用
   import http from "@/http";
@@ -348,6 +351,14 @@
   如 http.roleManagement.tableList()
   ```
   <br>
+
+- ##### Mockjs模拟数据
+  所有数据均来自本地mock模拟数据，位于`/src/mock`文件夹下。
+  `/src/mock/mock.js`为mock全局配置<br>
+  `/src/mock/apiController`文件夹为所有模拟接口请求处理<br>
+  <br>
+  在`/src/main.js`下引入mock文件即可使用接口，如`import "./mock/index";`
+  <br><br>
 - ##### 环境切换
   根据项目的根目录下的`.env.xxx.`文件区分环境，以`VITE_`开头的字段可在`process.env`中获取。如有更多需求可自行添加。
   + `.env.development`开发环境
@@ -361,6 +372,59 @@
     "build": "vite build", //打包项目
     "preview/dist": "vite preview" //本地预览打包的项目
   }
+  ```
+  <br>
+- ##### Vite基本配置
+  ```
+  // vite.config.js配置文件
+
+  import vue from "@vitejs/plugin-vue";
+  import { visualizer } from "rollup-plugin-visualizer";
+  import strip from "@rollup/plugin-strip";
+  import viteCompression from "vite-plugin-compression";
+  const path = require("path");
+
+  export default {
+    base: './',
+    plugins: [
+      vue(),
+      //正式环境打包查看各文件大小占比
+      visualizer({
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+      }),
+      //正式环境打包去除调试语句
+      {
+        ...strip({
+          include: ["**/*.js", "**/*.vue", "**/*.ts", "**/*.jsx"],
+        }),
+        apply: "build",
+      },
+      //打包开启gzip压缩
+      viteCompression(),
+    ],
+    resolve: {
+      alias: {
+        // 键必须以斜线开始和结束
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          //添加scss全局变量样式
+          additionalData: "@import './src/styles/global.scss';",
+        },
+      },
+    },
+    server: {
+      // 配置调试服务器主机名，如果允许外部访问，可设置为"0.0.0.0"
+      host: "0.0.0.0",
+      port: 3000, // 服务器端口号
+      open: true, // 是否自动打开浏览器
+    },
+  };
   ```
   <br>
 ## 注意
