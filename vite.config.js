@@ -8,6 +8,7 @@ const path = require("path");
  * @type {import('vite').UserConfig}
  */
 export default {
+  base: './',
   plugins: [
     vue(),
     //正式环境打包查看各文件大小占比
