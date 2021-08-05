@@ -9,6 +9,15 @@
     content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Vite-Vue3-Elementplus-Admin</title>
   <script>
+    (function () {
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect != location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
+  <script>
     (function detectIE() {
       if (window.ActiveXObject || "ActiveXObject" in window) {
         console.warn("is IE");
