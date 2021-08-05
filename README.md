@@ -71,7 +71,7 @@
 - vite-plugin-compression（打包压缩 gzip 插件）
 - @rollup/plugin-strip （打包去除调试语句插件）
 - visualizer （打包文件大小占比分析可视化插件）
-  <br>
+  <br><br>
 
 ## 模板主要结构
 
@@ -188,12 +188,19 @@
   //修改 $--color-primary 变量可更换element主题色
   $--color-primary: #80cbc4;
   ```
-  <br>
+  <div align=center>
+    <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98%E8%89%B21.png?raw=true" alt="主题色1"/>
+    <p style="text-align:center">主题色1</p>
+  </div>
+  <div align=center>
+    <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%99%BB%E5%BD%95.png?raw=true" alt="主题色2"/>
+    <p style="text-align:center">主题色2</p>
+  </div><br>
 - ##### 重置浏览器默认样式
 
   ​ 请参考`style`文件夹下的`custom-default-browser-style.scss`文件，本文件修改浏览器默认滚动条样式。
   ​ 更多的浏览器样式重置则使用了 npm 插件`reset-css`，在项目主入口文件`main.js`中引入。
-  <br>
+  <br><br>
 
 - ##### useTableData
 
@@ -227,12 +234,12 @@
   //表格数据（默认字段 list，totalCount，isLoading ）
   console.log(table.tableData);
   ```
-  <br>
+
 - ##### useWindowSize 与动态表格高度
 
   ​ 当固定表头时需要限制 elementUI 表格高度，数据则会表现为溢出滚动，如页面缩放的时候需要占满屏幕，则可监测浏览器高度`clientHeight`动态赋值表格高度，以达到缩放浏览器窗口表格大小不变的效果。
   ​ `useWindowRect`封装了监听浏览器宽高的可复用逻辑，此 hook 将动态的`clientHeight`和`clientWidth`值设置存储到 vuex 的`store/modules/app.js`文件内的`windowRect`字段，因此每个页面可引入动态的宽高值来设置表格高度。
-  <br>
+  <br><br>
 - ##### 菜单权限和动态路由
   ​如管理系统的权限是根据菜单管理页面和权限配置页面来设置的并且通过后端返回菜单区分账号权限，则前端可在登录时根据返回的菜单渲染侧边栏菜单和使用`VueRouter`的`router.addRoute`API 来动态添加路由。
   动态添加路由会在浏览器刷新时丢失，可把菜单用`localStorage`缓存，每次刷新浏览器都动态添加一次路由即可解决。
@@ -251,6 +258,10 @@
 
   根据后端返回的菜单结构的页面名称进行递归检索。
 
+   <div align=center>
+    <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E6%90%9C%E7%B4%A2.png?raw=true" alt="检索菜单"/>
+    <p style="text-align:center">检索菜单</p>
+  </div>
   <br>
 - ##### 面包屑
 
@@ -275,6 +286,11 @@
     }]
   }
   ```
+
+  <div align=center>
+    <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E9%9D%A2%E5%8C%85%E5%B1%91.png?raw=true" alt="面包屑"/>
+    <p style="text-align:center">面包屑</p>
+  </div>
   <br>
 - ##### 移动端适配
 
@@ -285,7 +301,7 @@
   - mobile：小于 750px（小屏设备）
 
   如有更多断点检测需求可自行在`app.vue`中设置。
-  <br>
+  <br><br>
 - ##### 系统设置
   可配置化或用户自行选择。
     <br>
@@ -296,6 +312,12 @@
     当页面指示为`标签切换`时可选页面切换时是否缓存页面状态，使用`<keep-alive>`组件缓存。
     <br>
   - 菜单栏折叠。
+
+  <br>
+  <div align=center>
+    <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E8%AE%BE%E7%BD%AE.png?raw=true" alt="系统设置"/>
+    <p style="text-align:center">系统设置</p>
+  </div>
   <br>
 - ##### 右键自定义菜单与Teleport
   当指示器为`标签切换`时，标签切换栏区域点击右键出现自定义菜单，可删除全部已打开的标签；
@@ -309,6 +331,11 @@
     </div>
   </teleport>
   ```
+  
+  <div align=center>
+    <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95.png?raw=true" alt="系统设置"/>
+    <p style="text-align:center">系统设置</p>
+  </div>
   <br>
 
 - ##### http请求与axios全局请求配置
@@ -325,7 +352,7 @@
   根据项目的根目录下的`.env.xxx.`文件区分环境，以`VITE_`开头的字段可在`process.env`中获取。如有更多需求可自行添加。
   + `.env.development`开发环境
   + `.env.production`正式环境
-  <br>
+  <br><br>
 - ##### Vite基本命令
   ```
   // package.json
