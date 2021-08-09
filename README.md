@@ -185,7 +185,8 @@
 ## 关键点介绍
 
 - ##### 自定义 ElementUI 组件样式
-  ​ 本模板已修改 elementUI 的默认主题色和部分表单组件样式，详细请参考`style`文件夹下的`elementui-variables.scss`样式文件。
+  （修改主题方法可能会随着element版本而变化，此方法适用于当前Element版本）
+  ​ 本模板已修改 elementUI 的默认主题色和部分表单组件样式，详细请参考`style`文件夹下的`elementui-variables.scss`样式文件。。
   <br>
   ```
   //修改 $--color-primary 变量可更换element主题色
@@ -199,6 +200,15 @@
     <img style="margin-top:20px 0;width:100%;height:auto" src="https://github.com/FEZIRO/vue3-vite-elementplus-admin/blob/master/preview/%E7%99%BB%E5%BD%95.png?raw=true" alt="主题色2"/>
     <p style="text-align:center">主题色2</p>
   </div><br>
+
+- ##### 自定义 ElementUI 语言
+  （修改语言方法可能会随着element版本而变化，此方法适用于当前Element版本）
+  ```
+  // main.js
+  import locale from "element-plus/lib/locale/lang/zh-cn";
+  app.use(ElementPlus, { locale });
+  ```
+  <br>
 - ##### 重置浏览器默认样式
 
   ​ 请参考`style`文件夹下的`custom-default-browser-style.scss`文件，本文件修改浏览器默认滚动条样式。
@@ -431,6 +441,7 @@
 
 - Vite 工具打包不兼容任何版本的 IE 浏览器（和 Webpack 打包机制不同）。
 - Vue 3 不兼容IE浏览器。
+- ElementPlus当前处于beta测试版，当更新到最新版本时某些设置可能会不正确，一切以Element官方文档为准！
 <br>
- <br>
+<br>
 <p align=center>By FEZIRO </p>

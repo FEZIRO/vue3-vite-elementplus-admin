@@ -7,7 +7,7 @@ import router from "@/router";
 import "reset-css";
 import store from "@/store";
 import "./mock/index";
-import "./styles/elementui-variables.scss";
+import "./styles/element-variables.scss";
 
 //全局注册Nprogress加载指示器
 import NProgress from "nprogress";
