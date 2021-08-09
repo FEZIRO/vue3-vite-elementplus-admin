@@ -360,7 +360,7 @@
   在`/src/main.js`下引入mock文件即可使用接口，如`import "./mock/index";`
   <br><br>
 - ##### 环境切换
-  根据项目的根目录下的`.env.xxx.`文件区分环境，以`VITE_`开头的字段可在`process.env`中获取。如有更多需求可自行添加。
+  根据项目的根目录下的`.env.xxx.`文件区分环境，以`VITE_`开头的字段可在`import.meta.env`中获取。如有更多需求可自行添加。
   + `.env.development`开发环境
   + `.env.production`正式环境
   <br><br>

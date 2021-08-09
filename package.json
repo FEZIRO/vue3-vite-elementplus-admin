@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dayjs": "^1.10.6",
-    "element-plus": "^1.0.2-beta.55",
+    "element-plus": "^1.0.2-beta.70",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "reset-css": "^5.0.1",
@@ -20,13 +20,13 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@rollup/plugin-strip": "^2.0.1",
-    "@vitejs/plugin-vue": "^1.2.5",
-    "@vue/compiler-sfc": "^3.1.4",
+    "@rollup/plugin-strip": "^2.1.0",
+    "@vitejs/plugin-vue": "^1.4.0",
+    "@vue/compiler-sfc": "^3.1.5",
     "babel-plugin-component": "^1.1.1",
     "rollup-plugin-visualizer": "^5.5.2",
-    "sass": "^1.35.2",
-    "vite": "^2.4.2",
-    "vite-plugin-compression": "^0.3.0"
+    "sass": "^1.37.5",
+    "vite": "^2.4.4",
+    "vite-plugin-compression": "^0.3.3"
   }
 }
