@@ -68,7 +68,7 @@
 - [VueRouter 4.x](https://next.router.vuejs.org/zh/)（有兼容`vue3`语法的`hook`写法）
 - [Vuex 4.x](https://next.vuex.vuejs.org/zh/index.html) （有兼容`vue3`语法的`hook`写法）
 - [Vite 2.x](https://cn.vitejs.dev/)
-- [ElementUI Plus 1.0.2-beta.55](https://element-plus.org/#/zh-CN/component/space)（整个库采用`vue3`语法编写）
+- [ElementPlus 1.0.2-beta.55](https://element-plus.org/#/zh-CN/component/space)（整个库采用`vue3`语法编写）
 - [dayjs](https://github.com/iamkun/dayjs)（一个轻便的时间处理库）
 - [axios](http://www.axios-js.com/) （好用的 http 请求库）
 - [mockjs](http://mockjs.com/) （模拟请求）
