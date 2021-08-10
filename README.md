@@ -26,7 +26,7 @@
   + github地址
     > https://github.com/FEZIRO/vue3-vite-elementplus-admin
   
-   + 模板下载地址（template分支）
+  + 模板下载地址（template分支）
     > https://github.com/FEZIRO/vue3-vite-elementplus-admin/tree/template
 
   + 在线预览（账号admin，密码admin） 
