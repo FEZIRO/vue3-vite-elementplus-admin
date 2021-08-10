@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dayjs": "^1.10.6",
-    "element-plus": "^1.0.2-beta.70",
+    "element-plus": "^1.0.2-beta.55",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "reset-css": "^5.0.1",
