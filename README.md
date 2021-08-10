@@ -25,6 +25,9 @@
 ## 预览
   + github地址
     > https://github.com/FEZIRO/vue3-vite-elementplus-admin
+  
+   + 模板下载地址（template分支）
+    > https://github.com/FEZIRO/vue3-vite-elementplus-admin/tree/template
 
   + 在线预览（账号admin，密码admin） 
     > https://feziro.github.io/vue3-vite-elementplus-admin/
@@ -58,14 +61,14 @@
     <p style="text-align:center">移动端菜单</p>
   </div>
   <br>
-  
+
 ## 使用库/工具
 
 - [Vue 3](https://v3.cn.vuejs.org/)
 - [VueRouter 4.x](https://next.router.vuejs.org/zh/)（有兼容`vue3`语法的`hook`写法）
 - [Vuex 4.x](https://next.vuex.vuejs.org/zh/index.html) （有兼容`vue3`语法的`hook`写法）
 - [Vite 2.x](https://cn.vitejs.dev/)
-- [ElementUI Plus](https://element-plus.org/#/zh-CN/component/space)（整个库采用`vue3`语法编写）
+- [ElementUI Plus 1.0.2-beta.55](https://element-plus.org/#/zh-CN/component/space)（整个库采用`vue3`语法编写）
 - [dayjs](https://github.com/iamkun/dayjs)（一个轻便的时间处理库）
 - [axios](http://www.axios-js.com/) （好用的 http 请求库）
 - [mockjs](http://mockjs.com/) （模拟请求）
@@ -185,7 +188,7 @@
 ## 关键点介绍
 
 - ##### 自定义 ElementUI 组件样式
-  （修改主题方法可能会随着element版本而变化，此方法适用于当前Element版本）
+  （修改主题方法可能会随着element版本而变化，此方法适用于<=ElementPlus1.0.2-beta.55版本）
   ​ 本模板已修改 elementUI 的默认主题色和部分表单组件样式，详细请参考`style`文件夹下的`elementui-variables.scss`样式文件。。
   <br>
   ```
@@ -202,7 +205,7 @@
   </div><br>
 
 - ##### 自定义 ElementUI 语言
-  （修改语言方法可能会随着element版本而变化，此方法适用于当前Element版本）
+  （修改语言方法可能会随着element版本而变化，此方法适用于<=ElementPlus1.0.2-beta.55版本）<br>
   ```
   // main.js
   import locale from "element-plus/lib/locale/lang/zh-cn";
@@ -441,7 +444,7 @@
 
 - Vite 工具打包不兼容任何版本的 IE 浏览器（和 Webpack 打包机制不同）。
 - Vue 3 不兼容IE浏览器。
-- ElementPlus当前处于beta测试版，当更新到最新版本时某些设置可能会不正确，一切以Element官方文档为准！
+- 本模板的ElementPlus使用的是1.0.2-beta.55测试版，由于是测试版缘故，功能设置随时会变，故当更新到某个新版本时某些设置可能会不正确不生效，一切以Element官方文档为准！
 <br>
 <br>
 <p align=center>By FEZIRO </p>
