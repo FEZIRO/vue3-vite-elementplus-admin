@@ -3,4 +3,5 @@ node_modules
 dist
 preview
 dist-ssr
+stats.html
 *.local

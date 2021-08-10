@@ -64,20 +64,16 @@
             />
           </el-form-item>
           <el-form-item label="验证码">
-            <el-row style="width: 100%">
-              <el-col :span="14">
-                <el-input
-                  placeholder="请输入验证码"
-                  v-model="registerForm.code"
-                />
-              </el-col>
-              <el-col :span="10">
-                <CountDownBtn
-                  :defaultTime="4"
-                  @getCode="onGetCodeClick"
-                ></CountDownBtn>
-              </el-col>
-            </el-row>
+            <el-space>
+              <el-input
+                placeholder="请输入验证码"
+                v-model="registerForm.code"
+              />
+              <CountDownBtn
+                :defaultTime="4"
+                @getCode="onGetCodeClick"
+              ></CountDownBtn>
+            </el-space>
           </el-form-item>
           <el-form-item>
             <el-button
